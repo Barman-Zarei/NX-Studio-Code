@@ -47,6 +47,7 @@
 	flex: 0 0 auto;
 	padding: 0 var(--vscode-spacing-size40);
 	border-radius: var(--vscode-cornerRadius-xSmall);
+	background: var(--vscode-editorWidget-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-charts-purple) 22%, var(--vscode-editorWidget-background));
 	color: var(--vscode-charts-purple);
 	font-size: var(--vscode-bodyFontSize-xSmall);

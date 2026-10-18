@@ -583,6 +583,7 @@
 	.chat-question-summary-options-title {
 		margin-bottom: var(--vscode-spacing-size40);
 		padding: 0 var(--vscode-spacing-size80) var(--vscode-spacing-size40);
+		border-bottom: var(--vscode-strokeThickness) solid var(--vscode-widget-border); /* nx-fallback: no color-mix() before Chromium 111 */
 		border-bottom: var(--vscode-strokeThickness) solid color-mix(in srgb, var(--vscode-widget-border) 70%, transparent);
 		color: var(--vscode-foreground);
 		font-size: var(--vscode-fontSize-label1);

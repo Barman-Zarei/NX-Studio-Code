@@ -7,10 +7,15 @@
 	@media (prefers-reduced-transparency: no-preference) and (forced-colors: none) {
 		.monaco-workbench.modern-ui-frosted-glass:not(.hc-black):not(.hc-light) {
 			/* Resolve theme colors here, before the surfaces replace their inherited background tokens. */
+			--modern-ui-glass-quick-input-background: var(--modern-ui-solid-quick-input-background); /* nx-fallback: no color-mix() before Chromium 111 */
 			--modern-ui-glass-quick-input-background: color-mix(in srgb, var(--modern-ui-solid-quick-input-background) var(--modern-ui-glass-opacity, 92%), transparent);
+			--modern-ui-glass-menu-background: var(--modern-ui-solid-menu-background); /* nx-fallback: no color-mix() before Chromium 111 */
 			--modern-ui-glass-menu-background: color-mix(in srgb, var(--modern-ui-solid-menu-background) var(--modern-ui-glass-opacity, 92%), transparent);
+			--modern-ui-glass-hover-background: var(--vscode-editorHoverWidget-background); /* nx-fallback: no color-mix() before Chromium 111 */
 			--modern-ui-glass-hover-background: color-mix(in srgb, var(--vscode-editorHoverWidget-background) var(--modern-ui-glass-opacity, 92%), transparent);
+			--modern-ui-glass-dialog-background: var(--modern-ui-solid-dialog-background); /* nx-fallback: no color-mix() before Chromium 111 */
 			--modern-ui-glass-dialog-background: color-mix(in srgb, var(--modern-ui-solid-dialog-background) var(--modern-ui-glass-opacity, 92%), transparent);
+			--modern-ui-glass-notifications-background: var(--vscode-notifications-background); /* nx-fallback: no color-mix() before Chromium 111 */
 			--modern-ui-glass-notifications-background: color-mix(in srgb, var(--vscode-notifications-background) var(--modern-ui-glass-opacity, 92%), transparent);
 			--modern-ui-solid-dialog-background: var(--vscode-editorWidget-background);
 			--modern-ui-solid-menu-background: var(--vscode-menu-background);
@@ -30,6 +35,7 @@
 
 			& .action-widget {
 				--vscode-menu-background: transparent;
+				--modern-ui-glass-background: var(--modern-ui-solid-menu-background); /* nx-fallback: no color-mix() before Chromium 111 */
 				--modern-ui-glass-background: color-mix(in srgb, var(--modern-ui-solid-menu-background) var(--vscode-context-view-menu-motion-backdrop-opacity, 0%), var(--modern-ui-glass-menu-background));
 			}
 

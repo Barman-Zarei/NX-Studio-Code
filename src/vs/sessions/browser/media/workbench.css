@@ -308,7 +308,9 @@
 	width: var(--vscode-spacing-size20);
 	height: var(--vscode-spacing-size20);
 	border-radius: var(--vscode-cornerRadius-circle);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 30%, transparent);
+	color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	color: color-mix(in srgb, var(--vscode-foreground) 30%, transparent);
 	opacity: 0.5;
 	pointer-events: none;
@@ -500,6 +502,7 @@
 	.agent-sessions-workbench .agents-part-card {
 		opacity: 0;
 		border-color: transparent;
+		background: var(--part-background); /* nx-fallback: no color-mix() before Chromium 111 */
 		background: color-mix(in srgb, var(--part-background) 60%, var(--vscode-sideBar-background));
 	}
 

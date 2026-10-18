@@ -3,6 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
+import './nx-compat/electron-shims-auto.js'; // NX LEGACY: protocol.handle / net.fetch for Electron 22
 import * as path from 'node:path';
 import * as fs from 'original-fs';
 import * as os from 'node:os';

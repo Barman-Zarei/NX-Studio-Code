@@ -65,6 +65,7 @@
 	height: 5px;
 	margin: 6px auto 2px;
 	border-radius: var(--vscode-cornerRadius-small);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 28%, transparent);
 	flex-shrink: 0;
 }
@@ -141,11 +142,13 @@
 	position: absolute;
 	inset: 6px;
 	border-radius: 50%;
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 8%, transparent);
 	pointer-events: none;
 }
 
 .mobile-picker-sheet-header-action:active::before {
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 16%, transparent);
 }
 
@@ -226,6 +229,7 @@
 	padding: 0 10px;
 	height: 36px;
 	border-radius: var(--vscode-cornerRadius-circle);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 10%, transparent);
 	flex-shrink: 0;
 }
@@ -323,6 +327,7 @@
 	/* Emphasized but lightweight: a low-opacity `textLink-foreground` tint
 	 * rather than a saturated filled button, so the action reads as the
 	 * primary choice while staying consistent with the muted rows below. */
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-textLink-foreground) 14%, transparent);
 	color: var(--vscode-textLink-foreground);
 	font-family: inherit;
@@ -343,6 +348,7 @@
 }
 
 .mobile-picker-sheet-primary-action:active {
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-textLink-foreground) 22%, transparent);
 }
 
@@ -356,6 +362,7 @@
 	/* Accent-tinted tile with an accent glyph: emphasized without the
 	 * glare of a solid white tile, and it fills the 36px slot so the icon
 	 * column lines up with the folder rows below. */
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-textLink-foreground) 22%, transparent);
 	color: var(--vscode-textLink-foreground);
 	flex-shrink: 0;
@@ -463,6 +470,7 @@
 .mobile-picker-sheet-divider {
 	height: 1px;
 	margin: 8px 8px;
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 12%, transparent);
 }
 
@@ -526,6 +534,7 @@
 	width: 36px;
 	height: 36px;
 	border-radius: var(--vscode-cornerRadius-large);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 8%, transparent);
 	flex-shrink: 0;
 	color: var(--vscode-descriptionForeground);
@@ -537,6 +546,7 @@
 }
 
 .mobile-picker-sheet-item.checked .mobile-picker-sheet-icon {
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-textLink-foreground, var(--vscode-button-background)) 18%, transparent);
 	color: var(--vscode-textLink-foreground, var(--vscode-button-background));
 }
@@ -580,8 +590,10 @@
 	height: var(--vscode-spacing-size160);
 	margin-left: auto;
 	padding: 0 var(--vscode-spacing-size60);
+	border: var(--vscode-strokeThickness) solid var(--vscode-contrastBorder, transparent); /* nx-fallback: no color-mix() before Chromium 111 */
 	border: var(--vscode-strokeThickness) solid var(--vscode-contrastBorder, color-mix(in srgb, var(--vscode-foreground) 20%, transparent));
 	border-radius: var(--vscode-cornerRadius-circle);
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-foreground) 10%, transparent);
 	color: var(--vscode-descriptionForeground);
 	font-size: var(--vscode-fontSize-label3);

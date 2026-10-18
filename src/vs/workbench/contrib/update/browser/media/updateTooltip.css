@@ -117,6 +117,7 @@
 /* Progress bar */
 .update-tooltip .progress-bar {
 	height: 4px;
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-progressBar-background) 30%, transparent);
 	border-radius: var(--vscode-cornerRadius-small);
 	overflow: hidden;

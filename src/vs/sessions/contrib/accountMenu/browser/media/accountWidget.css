@@ -148,6 +148,7 @@
 }
 
 .account-widget-update .account-widget-update-button.account-widget-update-button-hint:hover {
+	background-color: transparent !important; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-button-background) 20%, transparent) !important;
 }
 

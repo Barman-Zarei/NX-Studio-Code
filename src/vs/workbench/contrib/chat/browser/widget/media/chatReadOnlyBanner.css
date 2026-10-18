@@ -12,6 +12,7 @@
 	box-sizing: border-box;
 	height: 26px;
 	padding: 0 var(--vscode-spacing-size100);
+	background-color: var(--vscode-editorWidget-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-focusBorder) 4%, var(--vscode-editorWidget-background));
 	color: var(--vscode-descriptionForeground);
 	font-family: var(--vscode-chat-font-family, inherit);

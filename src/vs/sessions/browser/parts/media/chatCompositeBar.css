@@ -19,6 +19,7 @@
 }
 
 .monaco-workbench.agent-sessions-workbench .part.sessionspart.has-chat-background .chat-composite-bar.session-header-bar {
+	background-color: var(--session-view-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--session-view-background) 85%, transparent);
 }
 
@@ -208,6 +209,7 @@
 }
 
 .monaco-workbench:not(.modern-ui-connected-editor-tabs) .session-view.tabs-replace-header .chat-groups-view.single-group .chat-composite-bar-tabs-row {
+	border-bottom: var(--vscode-strokeThickness) solid transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	border-bottom: var(--vscode-strokeThickness) solid color-mix(in srgb, var(--session-view-foreground, var(--chat-tab-active-foreground)) 12%, transparent);
 }
 

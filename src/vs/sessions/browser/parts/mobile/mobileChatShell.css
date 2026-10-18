@@ -78,6 +78,7 @@
 	font-size: var(--vscode-fontSize-label1);
 	line-height: 18px;
 	font-variant-numeric: tabular-nums;
+	border: 1px solid var(--vscode-widget-border, transparent); /* nx-fallback: no color-mix() before Chromium 111 */
 	border: 1px solid var(--vscode-widget-border, color-mix(in srgb, var(--vscode-foreground) 15%, transparent));
 	background: transparent;
 	color: var(--vscode-foreground);

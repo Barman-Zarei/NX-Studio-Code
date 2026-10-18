@@ -1230,6 +1230,7 @@ button.chat-debug-cache-finding.is-clickable:focus-visible {
 .chat-debug-cache-rail-gap::after {
 	content: "";
 	flex: 1 1 auto;
+	border-top: 1px dashed var(--vscode-charts-yellow); /* nx-fallback: no color-mix() before Chromium 111 */
 	border-top: 1px dashed color-mix(in srgb, var(--vscode-charts-yellow) 50%, transparent);
 }
 .chat-debug-cache-card-h {
@@ -1473,6 +1474,7 @@ button.chat-debug-cache-finding.is-clickable:focus-visible {
 }
 .chat-debug-cache-sig-seg.role-coalesced,
 .chat-debug-cache-sig-swatch.role-coalesced {
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-descriptionForeground) 30%, transparent);
 }
 .chat-debug-cache-sig-break {
@@ -1575,6 +1577,7 @@ button.chat-debug-cache-finding.is-clickable:focus-visible {
 	background: var(--vscode-editorWidget-background);
 }
 .chat-debug-cache-sig-breakdown-row.is-drift {
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-charts-red) 12%, transparent);
 }
 .chat-debug-cache-sig-breakdown-row .cell {
@@ -1737,6 +1740,7 @@ button.chat-debug-cache-finding.is-clickable:focus-visible {
 }
 @keyframes chat-debug-cache-flash {
 	0% {
+		background: var(--vscode-editorWidget-background); /* nx-fallback: no color-mix() before Chromium 111 */
 		background: color-mix(in srgb, var(--vscode-focusBorder) 30%, var(--vscode-editorWidget-background));
 	}
 	100% {
@@ -1749,6 +1753,7 @@ button.chat-debug-cache-finding.is-clickable:focus-visible {
 	font-size: 11px;
 	line-height: 1.5;
 	color: var(--vscode-foreground);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-charts-yellow) 8%, transparent);
 	border-bottom: 1px solid var(--vscode-widget-border, var(--vscode-editorWidget-border));
 }

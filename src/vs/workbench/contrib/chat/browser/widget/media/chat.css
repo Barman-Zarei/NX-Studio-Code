@@ -54,6 +54,7 @@
 .monaco-workbench .interactive-session.chat-session-state-indicator.chat-state-needs-input::before {
 	border-color: var(--vscode-chat-sessionStateIndicator-needsInputBorder);
 	border-style: dashed;
+	box-shadow: 0 0 var(--vscode-spacing-size80) var(--vscode-chat-sessionStateIndicator-needsInputBorder); /* nx-fallback: no color-mix() before Chromium 111 */
 	box-shadow: 0 0 var(--vscode-spacing-size80) color-mix(in srgb, var(--vscode-chat-sessionStateIndicator-needsInputBorder) 60%, transparent);
 }
 
@@ -772,6 +773,7 @@
 }
 
 .interactive-item-container .value .rendered-markdown hr {
+	border-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	border-color: color-mix(in srgb, var(--vscode-textSeparator-foreground) 33%, transparent);
 }
 
@@ -1344,6 +1346,7 @@ have to be updated for changes to the rules above, or to support more deeply nes
 }
 
 .monaco-workbench .interactive-session .chat-input-container.working.focused {
+	border-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	border-color: color-mix(in srgb, var(--vscode-focusBorder) 40%, transparent);
 }
 
@@ -5019,6 +5022,7 @@ have to be updated for changes to the rules above, or to support more deeply nes
 	button's resting shape — only its color and the pulse change between states, so
 	the control never morphs from a circle into a rounded square mid-session. */
 .chat-input-container.voice-active .chat-input-toolbars .action-label.codicon-voice-mode-compact {
+	--chat-voice-icon-glow-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	--chat-voice-icon-glow-color: color-mix(in srgb, var(--voice-accent, var(--vscode-charts-blue, #58a6ff)) 40%, transparent);
 	color: var(--voice-accent, var(--vscode-charts-blue, #58a6ff)) !important;
 	border-radius: var(--vscode-cornerRadius-circle);

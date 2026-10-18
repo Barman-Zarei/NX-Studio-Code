@@ -226,6 +226,7 @@
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
+	border: 1px solid var(--vscode-descriptionForeground); /* nx-fallback: no color-mix() before Chromium 111 */
 	border: 1px solid color-mix(in srgb, var(--vscode-descriptionForeground) 50%, transparent);
 	border-radius: 3px;
 	height: 16px;
@@ -242,6 +243,7 @@
 .agent-status-esc-button:hover,
 .agent-status-enter-button:hover {
 	color: var(--vscode-commandCenter-foreground);
+	border-color: var(--vscode-commandCenter-foreground); /* nx-fallback: no color-mix() before Chromium 111 */
 	border-color: color-mix(in srgb, var(--vscode-commandCenter-foreground) 60%, transparent);
 }
 

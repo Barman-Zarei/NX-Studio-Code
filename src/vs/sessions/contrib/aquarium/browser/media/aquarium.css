@@ -141,6 +141,7 @@
  * back strips mix toward white for depth shading. 720ms / 8 strips = 90ms
  * phase delay; negative delay starts each strip mid-cycle. */
 .agents-aquarium-fish-strip {
+	color: currentColor; /* nx-fallback: no color-mix() before Chromium 111 */
 	color: color-mix(in srgb, currentColor, white calc(var(--agents-aquarium-strip-index, 0) * 4%));
 	animation: agents-aquarium-body-wave 720ms linear infinite;
 	animation-delay: calc(var(--agents-aquarium-strip-index, 0) * -90ms);

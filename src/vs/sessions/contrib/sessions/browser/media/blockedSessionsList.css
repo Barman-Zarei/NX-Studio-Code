@@ -59,13 +59,17 @@
 	border stay subtle so the pill reads as a gentle hint rather than an alert. */
 .command-center .agent-sessions-titlebar-container.agent-sessions-titlebar-requires-input {
 	color: var(--vscode-charts-orange);
+	border-color: var(--vscode-commandCenter-border); /* nx-fallback: no color-mix() before Chromium 111 */
 	border-color: color-mix(in srgb, var(--vscode-charts-orange) 40%, var(--vscode-commandCenter-border));
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-charts-orange) 7%, transparent);
 }
 
 .command-center .agent-sessions-titlebar-container.agent-sessions-titlebar-requires-input:hover {
 	color: var(--vscode-charts-orange);
+	border-color: var(--vscode-charts-orange); /* nx-fallback: no color-mix() before Chromium 111 */
 	border-color: color-mix(in srgb, var(--vscode-charts-orange) 60%, var(--vscode-commandCenter-border));
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-charts-orange) 12%, transparent);
 }
 
@@ -92,10 +96,12 @@
 @keyframes agent-sessions-titlebar-attention-blink {
 	0%,
 	100% {
+		background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 		background-color: color-mix(in srgb, var(--vscode-charts-orange) 7%, transparent);
 	}
 
 	50% {
+		background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 		background-color: color-mix(in srgb, var(--vscode-charts-orange) 26%, transparent);
 	}
 }

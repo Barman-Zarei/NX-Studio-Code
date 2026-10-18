@@ -596,6 +596,7 @@
 
 .action-widget .chat-model-picker-tabbed .monaco-list-row.action.checked {
 	color: var(--vscode-foreground);
+	background: var(--vscode-menu-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-button-background) 18%, var(--vscode-menu-background));
 }
 
@@ -733,6 +734,7 @@
 	padding: var(--vscode-spacing-sizeNone) var(--vscode-spacing-size60);
 	border-radius: var(--vscode-cornerRadius-circle);
 	color: var(--vscode-descriptionForeground);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 10%, transparent);
 	font-size: var(--vscode-fontSize-label2);
 	line-height: var(--vscode-spacing-size160);
@@ -750,6 +752,7 @@
 	padding: var(--vscode-spacing-sizeNone) var(--vscode-spacing-size60);
 	border-radius: var(--vscode-cornerRadius-circle);
 	color: var(--vscode-textLink-foreground);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-textLink-foreground) 14%, transparent);
 	text-decoration: none;
 }
@@ -757,6 +760,7 @@
 .action-widget .chat-model-picker-tabbed .monaco-list-row.chat-model-picker-unavailable .description a:hover,
 .action-widget .chat-model-picker-tabbed .monaco-list-row.chat-model-picker-unavailable .description a:active {
 	color: var(--vscode-textLink-activeForeground);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-textLink-activeForeground) 22%, transparent);
 }
 
@@ -770,12 +774,14 @@
 .action-widget .chat-model-picker-tabbed .monaco-list-row.chat-model-picker-badge-promo > .action-item-badge {
 	padding: var(--vscode-spacing-sizeNone) var(--vscode-spacing-size60);
 	color: var(--vscode-foreground);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-charts-green, var(--vscode-textLink-foreground)) 22%, transparent);
 }
 
 .action-widget .chat-model-picker-tabbed .monaco-list-row.chat-model-picker-badge-warning > .action-item-badge {
 	padding: var(--vscode-spacing-sizeNone) var(--vscode-spacing-size60);
 	color: var(--vscode-foreground);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 22%, transparent);
 }
 
@@ -786,6 +792,7 @@
 	padding: var(--vscode-spacing-sizeNone) var(--vscode-spacing-size60);
 	border-radius: var(--vscode-cornerRadius-circle);
 	color: var(--vscode-foreground);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 10%, transparent);
 	font-size: var(--vscode-fontSize-label2);
 	font-weight: var(--vscode-fontWeight-regular);
@@ -1038,6 +1045,7 @@
 	padding: var(--vscode-spacing-sizeNone) var(--vscode-spacing-size60);
 	border-radius: var(--vscode-cornerRadius-circle);
 	color: var(--vscode-foreground);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 10%, transparent);
 	font-size: var(--vscode-fontSize-label2);
 	line-height: var(--vscode-spacing-size160);
@@ -1045,6 +1053,7 @@
 }
 
 .chat-model-card-badge.high-cost {
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-editorWarning-foreground) 14%, transparent);
 }
 
@@ -1088,6 +1097,7 @@
 
 .model-picker-comparison .chat-model-card-comparison-variant-chip.added {
 	color: var(--vscode-foreground);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-focusBorder) 16%, transparent);
 }
 
@@ -1114,6 +1124,7 @@
 
 .model-picker-comparison .chat-model-card-comparison-variant-chip.addable:hover {
 	color: var(--vscode-foreground);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 6%, transparent);
 }
 
@@ -1137,6 +1148,7 @@
 }
 
 .chat-model-card-option.checked {
+	background-color: var(--vscode-menu-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-button-background) 18%, var(--vscode-menu-background));
 	font-weight: var(--vscode-fontWeight-semiBold);
 }
@@ -1167,6 +1179,7 @@
 	padding: var(--vscode-spacing-size20);
 	border: var(--vscode-strokeThickness) solid var(--vscode-contrastBorder, transparent);
 	border-radius: var(--vscode-cornerRadius-medium);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 4%, transparent);
 }
 
@@ -1197,6 +1210,7 @@
 }
 
 .chat-model-card-pricing-toggle:hover {
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 8%, transparent);
 }
 
@@ -1520,6 +1534,7 @@
 	height: var(--vscode-spacing-size40);
 	overflow: hidden;
 	border-radius: var(--vscode-cornerRadius-circle);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 12%, transparent);
 }
 

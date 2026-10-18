@@ -7,7 +7,7 @@
 | Package manager | `npm ci` | `npm ci` |
 | RAM for the build | ≥ 8 GB | ≥ 8 GB |
 | Build task | `npm run gulp vscode-<os>-<arch>-min` | same (win32 x64 only) |
-| Windows setup | `…-win32-<arch>-inno-updater`, `…-archive`, `…-user-setup` | same |
+| Windows setup | `…-win32-<arch>-inno-updater`, `…-archive`, `…-user-setup` | same (x64 only) |
 
 Windows needs Python 3 and Visual Studio Build Tools (C++); Linux needs `build-essential pkg-config libx11-dev libxkbfile-dev libsecret-1-dev libkrb5-dev`.
 GitHub Actions: `.github/workflows/build.yml` (manual or on `v*` tag) and `ci.yml` (NX core tests on Python 3.8/3.12, Windows+Linux; CI Doctor on our own workflows).

@@ -422,6 +422,7 @@
 
 .chat-status-bar-entry-tooltip .quota-callout.info {
 	border-color: var(--vscode-focusBorder);
+	background-color: var(--vscode-editorWidget-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-focusBorder) 6%, var(--vscode-editorWidget-background));
 }
 

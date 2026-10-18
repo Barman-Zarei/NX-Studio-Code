@@ -39,8 +39,10 @@
 	padding: var(--vscode-spacing-size60);
 	padding-right: var(--vscode-spacing-size320);
 	box-sizing: border-box;
+	border: var(--vscode-strokeThickness) solid var(--vscode-contrastBorder, transparent); /* nx-fallback: no color-mix() before Chromium 111 */
 	border: var(--vscode-strokeThickness) solid var(--vscode-contrastBorder, color-mix(in srgb, var(--vscode-foreground) 10%, transparent));
 	border-radius: var(--vscode-cornerRadius-medium);
+	background-color: var(--session-view-background, var(--vscode-editor-background)); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-foreground) 3%, var(--session-view-background, var(--vscode-editor-background)));
 	color: var(--vscode-foreground);
 	text-align: left;
@@ -48,6 +50,7 @@
 
 .monaco-button.new-session-connector-recommendation-card-primary:hover {
 	border-color: var(--vscode-focusBorder);
+	background-color: var(--vscode-editorWidget-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-focusBorder) 8%, var(--vscode-editorWidget-background));
 }
 

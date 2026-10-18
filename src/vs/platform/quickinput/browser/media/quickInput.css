@@ -426,6 +426,7 @@
 	themes are excluded so their stronger borders are preserved. */
 :is(.vs, .vs-dark) .quick-input-list .monaco-list-row.focused .monaco-keybinding-key,
 :is(.vs, .vs-dark) .quick-input-list .monaco-list-row:hover .monaco-keybinding-key {
+	border-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	border-color: color-mix(in srgb, currentColor 30%, transparent);
 }
 

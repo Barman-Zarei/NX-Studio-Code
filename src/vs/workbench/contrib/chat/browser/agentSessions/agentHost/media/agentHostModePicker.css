@@ -75,8 +75,10 @@
 	height: var(--vscode-spacing-size160);
 	font-size: var(--vscode-fontSize-label3);
 	line-height: normal;
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-foreground) 10%, transparent);
 	color: var(--vscode-descriptionForeground);
+	border: var(--vscode-strokeThickness) solid var(--vscode-contrastBorder, transparent); /* nx-fallback: no color-mix() before Chromium 111 */
 	border: var(--vscode-strokeThickness) solid var(--vscode-contrastBorder, color-mix(in srgb, var(--vscode-foreground) 20%, transparent));
 }
 

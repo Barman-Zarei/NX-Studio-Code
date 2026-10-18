@@ -22,6 +22,7 @@
 }
 
 .agent-sessions-workbench.dock-detail-panel .part.editor:not(.modal-editor-part) .editor-group-container > .title {
+	--modern-ui-editor-tabs-border: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	--modern-ui-editor-tabs-border: color-mix(in srgb, var(--vscode-activeSessionView-foreground, var(--vscode-agentsPanel-foreground)) 12%, transparent);
 }
 

@@ -21,6 +21,7 @@
 	box-sizing: border-box;
 	border: var(--vscode-strokeThickness) dashed var(--vscode-focusBorder);
 	border-radius: var(--vscode-cornerRadius-large);
+	background: var(--session-view-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--session-view-background) 92%, transparent);
 	color: var(--session-view-foreground);
 	pointer-events: none;

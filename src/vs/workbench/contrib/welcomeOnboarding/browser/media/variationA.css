@@ -756,7 +756,9 @@
 
 .onboarding-a-ai-pref-card.selected {
 	border-color: var(--vscode-focusBorder);
+	background: var(--vscode-editor-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-focusBorder) 8%, var(--vscode-editor-background));
+	box-shadow: 0 0 0 1px transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	box-shadow: 0 0 0 1px color-mix(in srgb, var(--vscode-focusBorder) 18%, transparent);
 }
 

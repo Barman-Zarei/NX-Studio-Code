@@ -1651,24 +1651,31 @@ per-word capitalization does not survive translation. */
 	padding: var(--vscode-spacing-size120);
 	border: var(--vscode-strokeThickness) solid var(--vscode-agentsPanel-border);
 	border-radius: var(--vscode-cornerRadius-medium);
+	background: var(--vscode-agentsPanel-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 6%, var(--vscode-agentsPanel-background));
 	color: var(--vscode-foreground);
 	box-sizing: border-box;
 }
 
 .ai-customization-management-editor .mcp-detail-diagnostic-card.warning {
+	background: var(--vscode-agentsPanel-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-inputValidation-warningBackground) 45%, var(--vscode-agentsPanel-background));
+	border-color: var(--vscode-inputValidation-warningBorder); /* nx-fallback: no color-mix() before Chromium 111 */
 	border-color: color-mix(in srgb, var(--vscode-inputValidation-warningBorder) 70%, var(--vscode-agentsPanel-border));
 }
 
 .ai-customization-management-editor .mcp-detail-diagnostic-card.error {
+	background: var(--vscode-agentsPanel-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-inputValidation-errorBackground) 45%, var(--vscode-agentsPanel-background));
+	border-color: var(--vscode-inputValidation-errorBorder); /* nx-fallback: no color-mix() before Chromium 111 */
 	border-color: color-mix(in srgb, var(--vscode-inputValidation-errorBorder) 70%, var(--vscode-agentsPanel-border));
 }
 
 .ai-customization-management-editor .mcp-detail-diagnostic-card.migration {
 	border-radius: var(--vscode-cornerRadius-large);
+	background: var(--vscode-agentsPanel-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-inputValidation-warningBackground) 35%, var(--vscode-agentsPanel-background));
+	border-color: var(--vscode-inputValidation-warningBorder); /* nx-fallback: no color-mix() before Chromium 111 */
 	border-color: color-mix(in srgb, var(--vscode-inputValidation-warningBorder) 70%, var(--vscode-agentsPanel-border));
 }
 
@@ -3167,11 +3174,13 @@ per-word capitalization does not survive translation. */
 
 .plugin-list-widget .plugin-list-item-status.running {
 	color: var(--vscode-editor-background);
+	background-color: var(--vscode-terminal-ansiGreen); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-terminal-ansiGreen) 50%, transparent);
 }
 
 .plugin-list-widget .plugin-list-item-status.disabled {
 	color: var(--vscode-badge-foreground);
+	background-color: var(--vscode-badge-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-badge-background) 50%, transparent);
 }
 

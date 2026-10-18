@@ -13,6 +13,7 @@
 	padding: 0;
 	border: var(--vscode-strokeThickness) solid transparent;
 	border-radius: var(--vscode-cornerRadius-circle);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-descriptionForeground) 36%, transparent);
 	cursor: pointer;
 	transition: background-color 120ms ease, border-color 120ms ease;

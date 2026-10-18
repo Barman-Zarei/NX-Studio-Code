@@ -29,6 +29,7 @@
 	width: 56px;
 	height: 56px;
 	border-radius: 50%;
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 8%, transparent);
 	color: var(--vscode-foreground);
 	margin-bottom: 4px;
@@ -60,7 +61,9 @@
 	display: inline-block;
 	padding: 1px 6px;
 	border-radius: var(--vscode-cornerRadius-small);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 10%, transparent);
+	border: 1px solid transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	border: 1px solid color-mix(in srgb, var(--vscode-foreground) 12%, transparent);
 	font-family: var(--monaco-monospace-font);
 	font-size: var(--vscode-fontSize-label1);

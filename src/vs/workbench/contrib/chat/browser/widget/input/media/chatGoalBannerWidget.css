@@ -14,6 +14,7 @@
 	/* Follows the run it docks into; the fallback is its own tier outside one. */
 	border-top-left-radius: var(--chat-input-stack-radius-top, var(--vscode-cornerRadius-large));
 	border-top-right-radius: var(--chat-input-stack-radius-top, var(--vscode-cornerRadius-large));
+	background-color: var(--vscode-editorWidget-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-focusBorder) 6%, var(--vscode-editorWidget-background));
 	color: var(--vscode-foreground);
 	font-size: var(--vscode-fontSize-label1);

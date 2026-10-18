@@ -120,6 +120,7 @@
 .monaco-custom-radio.segmented > .monaco-button.active:hover,
 .monaco-custom-radio.segmented > .monaco-radio-selection {
 	color: var(--vscode-foreground);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 10%, transparent);
 	border-color: var(--vscode-contrastActiveBorder, transparent);
 	box-shadow: none;

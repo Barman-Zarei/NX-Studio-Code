@@ -519,6 +519,7 @@
 		justify-content: center;
 		pointer-events: none;
 		color: var(--vscode-foreground);
+		background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 		background-color: color-mix(in srgb, var(--vscode-editor-background) 15%, transparent);
 		opacity: 0;
 		visibility: hidden;
@@ -530,6 +531,7 @@
 		}
 
 		&.show-message {
+			background-color: var(--vscode-editor-background); /* nx-fallback: no color-mix() before Chromium 111 */
 			background-color: color-mix(in srgb, var(--vscode-editor-background) 60%, transparent);
 		}
 	}

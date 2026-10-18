@@ -141,6 +141,7 @@
 		.monaco-list-row:not(.selected):not(.focused):not(:hover, .hovered):has(.session-item.needs-input),
 		.monaco-list-row:not(.selected):not(.focused):not(:hover, .hovered) .session-chat-item.needs-input {
 			animation: none;
+			background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 			background-color: color-mix(in srgb, var(--vscode-list-warningForeground) 8%, transparent);
 		}
 	}
@@ -679,6 +680,7 @@
 		line-height: 18px;
 		border: var(--vscode-strokeThickness) solid var(--vscode-charts-orange);
 		border-radius: var(--vscode-cornerRadius-large);
+		background-color: var(--vscode-editor-background); /* nx-fallback: no color-mix() before Chromium 111 */
 		background-color: color-mix(in srgb, var(--vscode-charts-orange) 6%, var(--vscode-editor-background));
 		color: var(--vscode-editor-foreground);
 		align-items: center;
@@ -1426,6 +1428,7 @@
 		background-color: transparent;
 	}
 	50% {
+		background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 		background-color: color-mix(in srgb, var(--vscode-list-warningForeground) 12%, transparent);
 	}
 }

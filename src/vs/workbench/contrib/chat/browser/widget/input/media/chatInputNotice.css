@@ -101,6 +101,7 @@
 .chat-input-notice.chat-input-notice-notification {
 	gap: var(--vscode-spacing-size20);
 	border-color: var(--chat-input-notice-severity);
+	background-color: var(--vscode-agentsChatInput-background, var(--vscode-input-background)); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--chat-input-notice-severity) 6%, var(--vscode-agentsChatInput-background, var(--vscode-input-background)));
 }
 

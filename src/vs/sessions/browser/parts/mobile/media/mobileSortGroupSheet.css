@@ -60,6 +60,7 @@
 	height: 4px;
 	margin: 8px auto 4px;
 	border-radius: var(--vscode-cornerRadius-xSmall);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 30%, transparent);
 	flex-shrink: 0;
 }
@@ -122,6 +123,7 @@
 .mobile-sort-group-sheet-divider {
 	height: 1px;
 	margin: 8px 16px;
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 12%, transparent);
 }
 

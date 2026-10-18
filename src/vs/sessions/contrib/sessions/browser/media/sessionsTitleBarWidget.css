@@ -152,12 +152,14 @@
 .command-center .agent-sessions-titlebar-container.agent-sessions-titlebar-approved {
 	color: var(--vscode-charts-green);
 	border-color: var(--vscode-charts-green);
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-charts-green) 14%, transparent);
 }
 
 .command-center .agent-sessions-titlebar-container.agent-sessions-titlebar-approved:hover {
 	color: var(--vscode-charts-green);
 	border-color: var(--vscode-charts-green);
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-charts-green) 22%, transparent);
 }
 

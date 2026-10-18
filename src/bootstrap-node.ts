@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import './nx-compat/polyfills.js'; // NX LEGACY: must run first
+import './nx-compat/fetch-node.js'; // NX LEGACY: fetch/Request/Response for Node 16 (no-op where they exist)
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import { Buffer } from 'node:buffer';

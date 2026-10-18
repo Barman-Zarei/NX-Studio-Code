@@ -25,6 +25,7 @@ import { copyFile, mapWithConcurrency, MAX_CONCURRENT_FILE_OPERATIONS, transpile
 import { copyResources } from './resources.ts';
 import { optimizeSvgFiles } from './svg.ts';
 import { getBundleOptions } from './bundle.ts';
+import { applyNxLegacy, isNxNodeEntry } from './nx-legacy.ts';
 import { compileStandaloneFiles } from './standalone.ts';
 
 const globAsync = promisify(glob);
@@ -525,7 +526,7 @@ async function bundle(outDir: string, doMinify: boolean, doNls: boolean, doMangl
 			plugins,
 		};
 
-		const result = await esbuild.build(buildOptions);
+		const result = await esbuild.build(applyNxLegacy(buildOptions, isNxNodeEntry(entryPoint) ? 'node' : 'browser'));
 
 		buildResults.push({ outPath, result });
 	}));
@@ -546,12 +547,12 @@ async function bundle(outDir: string, doMinify: boolean, doNls: boolean, doMangl
 			}));
 		}
 
-		const result = await esbuild.build({
+		const result = await esbuild.build(applyNxLegacy({
 			...getBundleOptions(doMinify, 'node'),
 			entryPoints: [entryPath],
 			outfile: outPath,
 			plugins: bootstrapPlugins,
-		});
+		}, 'node'));
 
 		buildResults.push({ outPath, result });
 	}
@@ -661,7 +662,7 @@ async function bundle(outDir: string, doMinify: boolean, doNls: boolean, doMangl
 		const errors = (await Promise.all([...postProcessedFiles].map(async jsPath => {
 			try {
 				const src = await fs.promises.readFile(jsPath, 'utf-8');
-				await esbuild.transform(src, { loader: 'js', format: 'esm' });
+				await esbuild.transform(src, { loader: 'js', format: /\bmodule\.exports\b|__toCommonJS/.test(src) ? 'cjs' : 'esm' }); // NX LEGACY: node bundles are CJS
 				return undefined;
 			} catch (e: unknown) {
 				const rel = path.relative(path.join(REPO_ROOT, outDir), jsPath);

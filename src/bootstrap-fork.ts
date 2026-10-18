@@ -229,8 +229,12 @@ if (process.env['VSCODE_PARENT_PID']) {
 	terminateWhenParentTerminates();
 }
 
-// Bootstrap ESM
-await bootstrapESM();
+// NX LEGACY: Electron 22 has no ES-module main process, so these entry files are bundled as CommonJS,
+// where top-level await is not allowed. Same sequence, wrapped in an async function.
+(async () => {
+	// Bootstrap ESM
+	await bootstrapESM();
 
-// Load ESM entry point
-await import([`./${esmEntryPoint}.js`].join('/') /* workaround: esbuild prints some strange warnings when trying to inline? */);
+	// Load ESM entry point
+	await import([`./${esmEntryPoint}.js`].join('/') /* workaround: esbuild prints some strange warnings when trying to inline? */);
+})().catch(err => { console.error(err); process.exit(1); });

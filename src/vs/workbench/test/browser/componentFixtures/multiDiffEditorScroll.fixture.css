@@ -384,6 +384,7 @@
 	left: 0;
 	right: 0;
 	border: 2px solid var(--vscode-focusBorder);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-focusBorder) 10%, transparent);
 	pointer-events: none;
 }

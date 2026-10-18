@@ -136,8 +136,10 @@
 /* As a standalone card (not attached above the input) the tip takes a full border and
 	rounds every corner, unlike the input-attached notice that squares its joined bottom. */
 .new-session-getting-started-tip-below .chat-input-notice {
+	border: var(--vscode-strokeThickness) solid var(--vscode-contrastBorder, transparent); /* nx-fallback: no color-mix() before Chromium 111 */
 	border: var(--vscode-strokeThickness) solid var(--vscode-contrastBorder, color-mix(in srgb, var(--vscode-foreground) 10%, transparent));
 	border-radius: var(--vscode-cornerRadius-medium);
+	background-color: var(--session-view-background, var(--vscode-editor-background)); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-foreground) 3%, var(--session-view-background, var(--vscode-editor-background)));
 }
 

@@ -15,6 +15,7 @@
 
 /* Working+focused: the chat input dims its focus border; match it here. */
 .interactive-session .chat-input-stack.chat-input-stack-input-focused.chat-input-stack-input-working > .chat-input-notification-container .chat-input-notification-widget.severity-info {
+	border-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	border-color: color-mix(in srgb, var(--vscode-focusBorder) 40%, transparent);
 }
 

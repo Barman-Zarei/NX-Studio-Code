@@ -53,6 +53,7 @@
 	margin: var(--vscode-spacing-size200) 0 var(--vscode-spacing-size280);
 	border: var(--vscode-strokeThickness) solid var(--vscode-agentsPanel-border);
 	border-radius: var(--vscode-cornerRadius-large);
+	background: var(--vscode-agentsPanel-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 8%, var(--vscode-agentsPanel-background));
 }
 
@@ -132,6 +133,7 @@
 
 .ai-customization-management-editor .welcome-prompts-input-submit:hover {
 	color: var(--vscode-foreground);
+	background: var(--vscode-list-hoverBackground); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-list-hoverBackground) 75%, transparent);
 }
 
@@ -214,6 +216,7 @@
 	padding: var(--vscode-spacing-size120);
 	border: var(--vscode-strokeThickness) solid var(--vscode-agentsPanel-border);
 	border-radius: var(--vscode-cornerRadius-large);
+	background: var(--vscode-agentsPanel-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 8%, var(--vscode-agentsPanel-background));
 	color: var(--vscode-foreground);
 	font: inherit;
@@ -233,12 +236,15 @@
 
 .ai-customization-management-editor .welcome-prompts-migration-card {
 	grid-column: 1 / -1;
+	background: var(--vscode-agentsPanel-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-inputValidation-warningBackground) 35%, var(--vscode-agentsPanel-background));
+	border-color: var(--vscode-inputValidation-warningBorder); /* nx-fallback: no color-mix() before Chromium 111 */
 	border-color: color-mix(in srgb, var(--vscode-inputValidation-warningBorder) 70%, var(--vscode-agentsPanel-border));
 	cursor: pointer;
 }
 
 .ai-customization-management-editor .welcome-prompts-migration-card:hover {
+	background: var(--vscode-inputValidation-warningBackground); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-inputValidation-warningBackground) 55%, var(--vscode-list-hoverBackground));
 }
 

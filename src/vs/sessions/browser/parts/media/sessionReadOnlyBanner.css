@@ -20,6 +20,7 @@
 		tabs; the extra left inset accounts for the header's status-icon column. */
 	margin: calc(-1 * var(--vscode-spacing-size20, 2px)) var(--vscode-spacing-size100, 10px) 0 calc(var(--vscode-spacing-size100, 10px) + var(--vscode-codiconFontSize, 16px) + var(--vscode-spacing-size60, 6px));
 	padding: 0 var(--vscode-spacing-size100, 10px);
+	background-color: var(--vscode-editorWidget-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-focusBorder) 4%, var(--vscode-editorWidget-background));
 	color: var(--vscode-descriptionForeground);
 	font-size: var(--vscode-fontSize-label1, 12px);

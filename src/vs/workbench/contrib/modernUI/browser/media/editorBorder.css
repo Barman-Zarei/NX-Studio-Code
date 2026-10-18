@@ -24,6 +24,7 @@
  */
 
 .modern-ui .monaco-grid-view .part.editor:not(.modal-editor-part) {
+	border: var(--vscode-strokeThickness) solid var(--vscode-editorGroup-border, transparent); /* nx-fallback: no color-mix() before Chromium 111 */
 	border: var(--vscode-strokeThickness) solid var(--vscode-editorGroup-border, color-mix(in srgb, var(--vscode-foreground) 12%, transparent));
 	border-radius: var(--vscode-cornerRadius-large);
 	box-sizing: border-box;
@@ -65,12 +66,14 @@
 
 .monaco-workbench.modern-ui .chat-view-position-left > .voice-agent-controls-wrapper {
 	.agent-sessions-container {
+		border-right-color: var(--vscode-surface-border, transparent) !important; /* nx-fallback: no color-mix() before Chromium 111 */
 		border-right-color: var(--vscode-surface-border, color-mix(in srgb, var(--vscode-foreground) 12%, transparent)) !important;
 	}
 }
 
 .monaco-workbench.modern-ui .chat-view-position-right > .voice-agent-controls-wrapper {
 	.agent-sessions-container {
+		border-left-color: var(--vscode-surface-border, transparent) !important; /* nx-fallback: no color-mix() before Chromium 111 */
 		border-left-color: var(--vscode-surface-border, color-mix(in srgb, var(--vscode-foreground) 12%, transparent)) !important;
 	}
 }

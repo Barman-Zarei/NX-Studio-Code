@@ -317,6 +317,7 @@
 }
 
 .agent-sessions-workbench .interactive-session .chat-input-container.working.focused {
+	border-color: transparent !important; /* nx-fallback: no color-mix() before Chromium 111 */
 	border-color: color-mix(in srgb, var(--vscode-agentsChatInput-focusBorder, var(--vscode-focusBorder)) 40%, transparent) !important;
 }
 

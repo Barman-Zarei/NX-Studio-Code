@@ -27,6 +27,7 @@
 	padding: 4px 6px 4px 10px;
 	border: var(--vscode-strokeThickness) solid var(--vscode-input-border, transparent);
 	border-radius: var(--vscode-cornerRadius-small, 4px);
+	background-color: var(--vscode-editorWidget-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-focusBorder) 6%, var(--vscode-editorWidget-background));
 	font-size: var(--vscode-chat-font-size-body-s);
 	font-family: var(--vscode-chat-font-family, inherit);
@@ -39,6 +40,7 @@
 /* Orange accent variant (used by the CI failures banner). */
 .session-input-banner.accent-orange {
 	border-color: var(--vscode-charts-orange);
+	background-color: var(--vscode-editorWidget-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-charts-orange) 6%, var(--vscode-editorWidget-background));
 	/* Match the animated border to the orange accent used for CI failures. */
 	--session-input-banner-working-border-color: var(--vscode-charts-orange);

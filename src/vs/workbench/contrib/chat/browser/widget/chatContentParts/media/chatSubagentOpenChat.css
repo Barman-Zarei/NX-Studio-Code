@@ -338,6 +338,7 @@
 	}
 
 	50% {
+		background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 		background-color: color-mix(in srgb, var(--vscode-list-warningForeground) 12%, transparent);
 	}
 }
@@ -348,11 +349,13 @@
 
 .chat-subagent-open-chat-toolbar .action-item.chat-subagent-pill-widget.chat-subagent-confirmation-active .chat-subagent-pill-content {
 	border-color: var(--vscode-list-warningForeground);
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-list-warningForeground) 12%, transparent);
 	color: var(--vscode-list-warningForeground);
 }
 
 .monaco-reduce-motion .chat-subagent-open-chat-toolbar .action-item.chat-subagent-pill-widget.chat-subagent-confirmation-pending .chat-subagent-pill-content {
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-list-warningForeground) 8%, transparent);
 }
 

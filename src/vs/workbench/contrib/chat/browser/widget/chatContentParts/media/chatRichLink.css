@@ -12,6 +12,7 @@
 	box-sizing: border-box;
 	gap: 0.24em;
 	padding: 1px 0.3em;
+	border: var(--vscode-strokeThickness) solid transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	border: var(--vscode-strokeThickness) solid color-mix(in srgb, var(--vscode-textLink-foreground) 24%, transparent);
 	border-radius: var(--vscode-cornerRadius-small);
 	background: var(--vscode-button-secondaryBackground);
@@ -53,6 +54,7 @@
 	flex: none;
 	align-self: center;
 	font-size: var(--vscode-codiconFontSize-compact);
+	color: var(--vscode-textLink-foreground); /* nx-fallback: no color-mix() before Chromium 111 */
 	color: color-mix(in srgb, var(--vscode-textLink-foreground) 78%, currentColor);
 }
 
@@ -462,6 +464,7 @@
 
 @keyframes chat-rich-link-loading-border {
 	from {
+		border-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 		border-color: color-mix(in srgb, var(--vscode-progressBar-background) 35%, transparent);
 	}
 

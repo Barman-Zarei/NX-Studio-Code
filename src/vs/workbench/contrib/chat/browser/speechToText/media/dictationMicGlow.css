@@ -28,6 +28,7 @@
 	z-index: 0;
 	pointer-events: none;
 	border-radius: var(--dictation-mic-glow-radius, var(--vscode-cornerRadius-small));
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-chat-dictationActiveMicGlow) 12%, transparent);
 	box-shadow:
 		inset 0 0 0 1px color-mix(in srgb, var(--vscode-chat-dictationActiveMicGlow) calc(30% + var(--dictation-mic-level) * 30%), transparent),

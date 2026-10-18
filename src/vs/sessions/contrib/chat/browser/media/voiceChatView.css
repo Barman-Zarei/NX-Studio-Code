@@ -22,6 +22,7 @@ so mirror the accent-tinted glow here. `voice-active` / `voice-listening` and th
 the button's resting shape so the control never morphs between states — only its
 color and the pulse change. */
 .new-chat-input-area.voice-active .action-label.codicon-voice-mode-compact {
+	--sessions-voice-icon-glow-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	--sessions-voice-icon-glow-color: color-mix(in srgb, var(--voice-accent, var(--vscode-charts-blue, #58a6ff)) 40%, transparent);
 	color: var(--voice-accent, var(--vscode-charts-blue, #58a6ff)) !important;
 	border-radius: var(--vscode-cornerRadius-small);

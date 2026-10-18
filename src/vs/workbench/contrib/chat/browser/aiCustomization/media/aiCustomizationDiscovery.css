@@ -180,6 +180,7 @@
 .customization-discovery-section.featured {
 	padding: var(--vscode-spacing-size120);
 	border-radius: var(--vscode-cornerRadius-medium);
+	background: var(--vscode-editorWidget-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 4%, var(--vscode-editorWidget-background));
 }
 
@@ -267,6 +268,7 @@
 
 .customization-discovery-card-icon.is-fallback,
 .customization-discovery-result-icon.is-fallback {
+	border: var(--vscode-strokeThickness) solid var(--vscode-widget-border, transparent); /* nx-fallback: no color-mix() before Chromium 111 */
 	border: var(--vscode-strokeThickness) solid var(--vscode-widget-border, color-mix(in srgb, var(--vscode-foreground) 20%, transparent));
 }
 

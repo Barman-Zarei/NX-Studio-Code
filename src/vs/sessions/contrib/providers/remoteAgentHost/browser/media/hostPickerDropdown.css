@@ -59,6 +59,7 @@
 	height: 4px;
 	margin: 8px auto 4px;
 	border-radius: var(--vscode-cornerRadius-xSmall);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 30%, transparent);
 	flex-shrink: 0;
 }
@@ -128,6 +129,7 @@
 .host-picker-sheet-divider {
 	height: 1px;
 	margin: 8px 16px;
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-foreground) 12%, transparent);
 }
 
@@ -254,6 +256,7 @@
 
 .host-picker-sheet-footer {
 	flex-shrink: 0;
+	border-top: 1px solid transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	border-top: 1px solid color-mix(in srgb, var(--vscode-foreground) 12%, transparent);
 }
 

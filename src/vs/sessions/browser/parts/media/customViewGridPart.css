@@ -41,6 +41,7 @@
 	box-sizing: border-box;
 	margin: 0 auto;
 	padding: 6px 10px;
+	border-bottom: var(--vscode-strokeThickness) solid transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	border-bottom: var(--vscode-strokeThickness) solid color-mix(in srgb, var(--session-view-foreground) 12%, transparent);
 }
 

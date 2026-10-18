@@ -108,11 +108,13 @@
 }
 
 .session-comparison-result-tag {
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-foreground) 8%, transparent);
 	color: var(--vscode-descriptionForeground);
 }
 
 .session-comparison-result-tag.recommended {
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-textLink-foreground) 12%, transparent);
 	color: var(--vscode-textLink-foreground);
 }
@@ -141,6 +143,7 @@
 
 /* Rows read as a clean list: no line between them, just a tint while hovered or expanded. */
 .session-comparison-scorecard-row.expanded {
+	background-color: var(--vscode-list-hoverBackground); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-list-hoverBackground) 50%, transparent);
 }
 
@@ -254,6 +257,7 @@
 	height: 4px;
 	overflow: hidden;
 	border-radius: var(--vscode-cornerRadius-circle);
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-foreground) 10%, transparent);
 }
 
@@ -261,6 +265,7 @@
 	position: absolute;
 	inset: 0 auto 0 0;
 	border-radius: inherit;
+	background-color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-foreground) 40%, transparent);
 }
 
@@ -431,6 +436,7 @@
 .session-comparison-result-markdown code {
 	padding: var(--vscode-spacing-size20) var(--vscode-spacing-size40);
 	border-radius: var(--vscode-cornerRadius-small);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-widget-border) 25%, transparent);
 	font-family: var(--monaco-monospace-font);
 	font-size: var(--vscode-fontSize-label1);

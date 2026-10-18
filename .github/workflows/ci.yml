@@ -28,7 +28,7 @@ jobs:
           python-version: ${{ matrix.python }}
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: "20"
+          node-version: "24"
       - name: Python unit tests (NX core)
         working-directory: extensions/nx-studio/python
         run: python -m unittest discover -s tests -v
@@ -36,6 +36,8 @@ jobs:
         run: node extensions/nx-studio/test/smoke.js
       - name: LEGACY polyfills (APIs removed, then supplied)
         run: node nx/test-polyfills.mjs
+      - name: LEGACY fetch + Electron protocol shim
+        run: node nx/test-compat.mjs
   ci-doctor:
     name: CI Doctor on our own workflows
     runs-on: ubuntu-22.04
@@ -60,3 +62,20 @@ jobs:
                   bad += x["severity"] == "error"
           sys.exit(1 if bad else 0)
           PY
+  legacy-bundles:
+    name: LEGACY node-side bundles are valid CommonJS
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "24"
+      - name: Install esbuild
+        run: npm install --prefix "$RUNNER_TEMP/esb" esbuild@0.25.12
+      - name: Bundle every node entry point with the real build options
+        env:
+          ESBUILD: ${{ runner.temp }}/esb/node_modules/esbuild
+        run: node nx/verify-cjs-bundles.mjs

@@ -42,6 +42,7 @@
 .sessions-chat-background > .sessions-chat-codicon-background {
 	position: absolute;
 	inset: 0;
+	color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	color: color-mix(in srgb, var(--vscode-foreground) 10%, transparent);
 }
 
@@ -57,15 +58,18 @@
 
 .sessions-chat-codicon-depth.far {
 	font-size: var(--vscode-codiconFontSize-compact);
+	color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	color: color-mix(in srgb, var(--vscode-foreground) 10%, transparent);
 	filter: blur(0.6px);
 }
 
 .sessions-chat-codicon-depth.middle {
+	color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	color: color-mix(in srgb, var(--vscode-foreground) 18%, transparent);
 }
 
 .sessions-chat-codicon-depth.near {
+	color: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	color: color-mix(in srgb, var(--vscode-foreground) 28%, transparent);
 }
 

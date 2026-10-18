@@ -202,12 +202,14 @@
 	font-size: var(--vscode-fontSize-label3);
 	font-weight: var(--vscode-fontWeight-semiBold);
 	letter-spacing: 0.2px;
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-editorWidget-border, var(--vscode-widget-border)) 25%, transparent);
 	color: var(--vscode-descriptionForeground);
 }
 
 .agent-feedback-widget-item-prReview .agent-feedback-widget-item-type,
 .agent-feedback-widget-item-agentFeedback .agent-feedback-widget-item-type {
+	background: var(--vscode-editorWidget-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-button-background) 22%, var(--vscode-editorWidget-background));
 	color: var(--vscode-button-background);
 }
@@ -239,6 +241,7 @@
 	font-size: var(--vscode-fontSize-label3);
 	padding: 1px 4px;
 	border-radius: var(--vscode-cornerRadius-small);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-editorWidget-border, var(--vscode-widget-border)) 25%, transparent);
 }
 
@@ -251,6 +254,7 @@
 }
 
 .agent-feedback-widget-item-prReview .agent-feedback-widget-suggestion {
+	border-left: 1px solid var(--vscode-charts-purple); /* nx-fallback: no color-mix() before Chromium 111 */
 	border-left: 1px solid color-mix(in srgb, var(--vscode-charts-purple) 50%, transparent);
 }
 
@@ -325,6 +329,7 @@
 
 .agent-feedback-widget-reply {
 	padding-top: 4px;
+	border-top: 1px dashed var(--vscode-editorWidget-border, var(--vscode-widget-border)); /* nx-fallback: no color-mix() before Chromium 111 */
 	border-top: 1px dashed color-mix(in srgb, var(--vscode-editorWidget-border, var(--vscode-widget-border)) 60%, transparent);
 }
 
@@ -350,12 +355,14 @@
 	font-size: var(--vscode-fontSize-label3);
 	padding: 2px 4px;
 	border-radius: var(--vscode-cornerRadius-small);
+	background: transparent; /* nx-fallback: no color-mix() before Chromium 111 */
 	background: color-mix(in srgb, var(--vscode-editorWidget-border, var(--vscode-widget-border)) 25%, transparent);
 }
 
 /* Reply composer shown when adding to a comment */
 .agent-feedback-widget-add-reply {
 	padding-top: 4px;
+	border-top: 1px dashed var(--vscode-editorWidget-border, var(--vscode-widget-border)); /* nx-fallback: no color-mix() before Chromium 111 */
 	border-top: 1px dashed color-mix(in srgb, var(--vscode-editorWidget-border, var(--vscode-widget-border)) 60%, transparent);
 }
 

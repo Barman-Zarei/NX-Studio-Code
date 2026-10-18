@@ -21,6 +21,7 @@
 /* Shared inset for the header content, transcript, and composer. */
 .session-view {
 	--session-view-content-horizontal-padding: var(--vscode-spacing-size240);
+	--session-view-inactive-input-background: var(--vscode-inactiveSessionView-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	--session-view-inactive-input-background: color-mix(in srgb, var(--vscode-agentsChatInput-background) 10%, var(--vscode-inactiveSessionView-background));
 	--session-view-request-background: var(--vscode-chat-requestBubbleBackground);
 	--session-view-request-hover-background: var(--vscode-chat-requestBubbleHoverBackground);
@@ -87,6 +88,7 @@
 	content: '';
 	position: absolute;
 	inset: 0;
+	background-color: var(--vscode-inactiveSessionView-background); /* nx-fallback: no color-mix() before Chromium 111 */
 	background-color: color-mix(in srgb, var(--vscode-inactiveSessionView-background) 75%, transparent);
 	pointer-events: none;
 }
@@ -111,7 +113,9 @@
 .monaco-workbench:not(.session-comparison-grid-active, .hc-black, .hc-light) .session-view:not(.is-active) .interactive-session .interactive-list,
 .monaco-workbench:not(.session-comparison-grid-active, .hc-black, .hc-light) .session-view .chat-group-view:not(.active-group) .interactive-session .interactive-list {
 	--session-view-bubble-background-opacity: 0.75;
+	--vscode-chat-requestBubbleBackground: var(--session-view-request-background) calc(var(--session-view-bubble-background-opacity) * 100%); /* nx-fallback: no color-mix() before Chromium 111 */
 	--vscode-chat-requestBubbleBackground: color-mix(in srgb, var(--session-view-request-background) calc(var(--session-view-bubble-background-opacity) * 100%), transparent);
+	--vscode-chat-requestBubbleHoverBackground: var(--session-view-request-hover-background) calc(var(--session-view-bubble-background-opacity) * 100%); /* nx-fallback: no color-mix() before Chromium 111 */
 	--vscode-chat-requestBubbleHoverBackground: color-mix(in srgb, var(--session-view-request-hover-background) calc(var(--session-view-bubble-background-opacity) * 100%), transparent);
 }
 
