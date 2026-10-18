@@ -6,7 +6,7 @@
 	"sharedDataFolderName": ".nx-studio-code-shared",
 	"win32MutexName": "nxstudiocode",
 	"licenseName": "MIT",
-	"licenseUrl": "https://github.com/Barman-Zarei/NX-Studio-Code/blob/main/LICENSE.txt",
+	"licenseUrl": "https://github.com/Barman-Zarei/NX-Studio-Code/blob/LEGACY/LICENSE.txt",
 	"serverLicenseUrl": "https://github.com/microsoft/vscode/blob/main/LICENSE.txt",
 	"serverGreeting": [],
 	"serverLicense": [],
@@ -17,10 +17,10 @@
 	"win32DirName": "NX Studio Code",
 	"win32NameVersion": "NX Studio Code",
 	"win32RegValueName": "NXStudioCode",
-	"win32x64AppId": "{{174E7D74-924D-5519-8B8F-E740EC9BFCF8}",
-	"win32arm64AppId": "{{D1A26BA3-C8B4-590E-82DE-A1D71F52B302}",
-	"win32x64UserAppId": "{{1169B9C5-A744-57A1-842E-14D3B8442660}",
-	"win32arm64UserAppId": "{{70EB57E5-2446-5746-886E-5218300FD087}",
+	"win32x64AppId": "{{DF681741-3A49-5C2D-85CB-902CDB34E81D}",
+	"win32arm64AppId": "{{1A97EB5A-F706-5B9D-8509-3A0F1F77FD33}",
+	"win32x64UserAppId": "{{C6D29114-300A-5B11-87FA-5697B64BB3EF}",
+	"win32arm64UserAppId": "{{C012DD71-176C-5267-8170-90DC94E55FD5}",
 	"win32AppUserModelId": "Barman.NXStudioCode",
 	"win32ShellNameShort": "NX Studio &Code",
 	"win32TunnelServiceMutex": "nxstudiocode-tunnelservice",
@@ -199,7 +199,7 @@
 	"voiceWsUrl": "wss://falcon-caas.mai.microsoft.com/voice-code/api/v1/realtime/voice",
 	"nxVersion": "1.0.0",
 	"nxAuthor": "Barman",
-	"nxLine": "main",
+	"nxLine": "legacy",
 	"extensionsGallery": {
 		"serviceUrl": "https://open-vsx.org/vscode/gallery",
 		"itemUrl": "https://open-vsx.org/vscode/item",
@@ -208,6 +208,8 @@
 	"configurationDefaults": {
 		"telemetry.telemetryLevel": "off",
 		"update.mode": "none",
-		"workbench.enableExperiments": false
+		"workbench.enableExperiments": false,
+		"terminal.integrated.gpuAcceleration": "off",
+		"editor.minimap.enabled": false
 	}
 }
