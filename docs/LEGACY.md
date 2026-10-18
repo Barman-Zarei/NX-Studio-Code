@@ -15,7 +15,13 @@
 
 ## STATUS: first-pass port — NOT yet bootable-verified
 Nothing here has been built or run (the author's machine cannot build VS Code, and no Windows 7 machine was available).
-Measured gaps that still stand between this tree and a working Windows 7 build:
+**Blocker 0 (found last, and the biggest): the main process is ES-module code, and Electron 22 cannot load it.**
+`package.json` has `"type": "module"`, `src/main.ts` uses top-level `await import(...)`, and 44 source files use `import.meta`.
+Electron added ESM support for the main process only in **28.0.0**. Running this source on Electron 22 therefore needs the whole
+main/utility-process side converted to CommonJS (with top-level await removed) — a large rewrite that must be built and
+debugged on a real Windows machine. The shims below (items 1-7) are only worth doing after that. Nothing in this branch solves it.
+
+Other measured gaps:
 
 1. **`protocol.handle`** (Electron 25+) serves the `vscode-file://` protocol that loads the whole workbench
    (`src/vs/platform/protocol/electron-main/protocolMainService.ts`, 8 call sites). Needs a rewrite on `registerStreamProtocol`.
