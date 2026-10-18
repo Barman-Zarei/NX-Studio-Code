@@ -11,10 +11,10 @@ secret scanner, Claude Ask/Project Agent, project forge, profiler, live preview 
 | Branch | Engine | Targets |
 |---|---|---|
 | `main` | current upstream VS Code (1.143.0 at import, Electron 43) | Windows 10+, Linux, macOS |
-| `LEGACY` | VS Code 1.70.3 (Electron 18) | **Windows 7 SP1+**, 32-bit and 64-bit, old CPUs and graphics cards |
+| `LEGACY` | same source as `main`, retargeted to Electron 22.3.27 (port in progress) | **Windows 7 SP1+**, 32-bit and 64-bit, old CPUs and graphics cards |
 
 Both branches carry the **same NX layer** (same extension, branding, defaults, docs and CI). They differ only in the VS Code
-engine underneath, because newer VS Code (Electron 23+) cannot run on Windows 7. See `docs/LEGACY.md` for what that means.
+Electron target and a small compatibility layer, because Electron 23+ cannot run on Windows 7. `git diff main LEGACY` shows all of it; see `docs/LEGACY.md` for the **current, unfinished status**.
 
 ## What is included
 See `docs/NX-FEATURES.md` for the full table with honest status. Open the command menu by clicking **NX 1.0.0** in the status bar
@@ -35,5 +35,5 @@ node extensions/nx-studio/test/smoke.js
 
 ## خلاصه فارسی
 ادیتور NX Studio Code یک فورک از Code - OSS است و ویژگی‌های NX Code Studio (از جمله CI/CD، تست، ریلیز، گیت، بررسی کد، اسکنر
-رمز/کلید، Claude) به‌صورت اکستنشن داخلی در آن قرار دارد. شاخه‌ی `main` روی جدیدترین VS Code است و شاخه‌ی `LEGACY` روی VS Code 1.70.3
+رمز/کلید، Claude) به‌صورت اکستنشن داخلی در آن قرار دارد. شاخه‌ی `main` روی جدیدترین VS Code است و شاخه‌ی `LEGACY` همان سورس با Electron 22 و لایه‌ی سازگاری (در حال تکمیل)
 برای ویندوز ۷ و سخت‌افزار قدیمی. بیلد کامل هنوز اجرا نشده و روی ویندوز ۷ واقعی تست نشده است.
