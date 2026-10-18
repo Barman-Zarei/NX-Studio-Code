@@ -3,6 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
+import './nx-compat/polyfills.js'; // NX LEGACY: must run first
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import { Buffer } from 'node:buffer';

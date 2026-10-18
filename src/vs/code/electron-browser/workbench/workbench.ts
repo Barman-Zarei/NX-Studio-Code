@@ -5,6 +5,7 @@
 
 /* eslint-disable no-restricted-globals */
 
+import '../../../../nx-compat/polyfills.js'; // NX LEGACY: must run first
 import { getPartsSplashColors, getPartsSplashLayoutMetrics } from './partsSplash.js';
 
 (async function () {

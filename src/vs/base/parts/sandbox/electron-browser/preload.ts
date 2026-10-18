@@ -186,7 +186,7 @@
 		webUtils: {
 
 			getPathForFile(file: File): string {
-				return webUtils.getPathForFile(file);
+				return typeof webUtils?.getPathForFile === 'function' ? webUtils.getPathForFile(file) : (file as File & { path?: string }).path ?? ''; // NX LEGACY: Electron < 32 fallback
 			}
 		},
 
