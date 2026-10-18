@@ -13,7 +13,7 @@
 		"exactOptionalPropertyTypes": false,
 		"useUnknownInCatchVariables": false,
 		"forceConsistentCasingInFileNames": true,
-		"target": "ES2024",
+		"target": "ES2022",
 		"useDefineForClassFields": false,
 		"paths": {
 			"electron": [
