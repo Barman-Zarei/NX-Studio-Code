@@ -401,6 +401,9 @@ function packageTask(platform: string, arch: string, sourceFolderName: string, d
 					.pipe(replace('@@QUALITY@@', quality!))
 					.pipe(rename(function (f) { f.basename = product.applicationName; f.extname = ''; })));
 			} else {
+				result = es.merge(result, gulp.src('resources/win32/bin/nx-studio-code-safe.cmd', { base: 'resources/win32' })
+					.pipe(replace('@@NAME@@', product.nameShort)));
+
 				result = es.merge(result, gulp.src('resources/win32/bin/code.cmd', { base: 'resources/win32' })
 					.pipe(replace('@@NAME@@', product.nameShort))
 					.pipe(rename(function (f) { f.basename = product.applicationName; })));

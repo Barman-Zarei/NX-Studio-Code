@@ -1,0 +1,66 @@
+name: build
+# Builds NX Studio Code (main line, current upstream VS Code). NOT executed by the author of this commit:
+# first run is expected to need small fixes (runner images, native-module toolchains).
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: read
+jobs:
+  build:
+    name: build ${{ matrix.target }}-${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 150
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-2022, target: win32, arch: x64 }
+          - { os: ubuntu-22.04, target: linux, arch: x64 }
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: .nvmrc
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.11"
+      - name: Linux build dependencies
+        if: matrix.target == 'linux'
+        run: sudo apt-get update && sudo apt-get install -y build-essential pkg-config libx11-dev libxkbfile-dev libsecret-1-dev libkrb5-dev
+      - name: Install
+        run: npm ci
+      - name: Build (compile + extensions + minify + package)
+        run: npm run gulp vscode-${{ matrix.target }}-${{ matrix.arch }}-min
+      - name: Windows installer and zip
+        if: matrix.target == 'win32'
+        run: |
+          npm run gulp vscode-win32-${{ matrix.arch }}-inno-updater
+          npm run gulp vscode-win32-${{ matrix.arch }}-archive
+          npm run gulp vscode-win32-${{ matrix.arch }}-user-setup
+      - name: Pack Linux tarball
+        if: matrix.target == 'linux'
+        run: tar -czf ../NX-Studio-Code-linux-${{ matrix.arch }}.tar.gz -C .. VSCode-linux-${{ matrix.arch }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: nx-studio-code-main-${{ matrix.target }}-${{ matrix.arch }}
+          path: |
+            .build/win32-${{ matrix.arch }}/archive/*.zip
+            .build/win32-${{ matrix.arch }}/user-setup/*.exe
+            ../NX-Studio-Code-linux-${{ matrix.arch }}.tar.gz
+          if-no-files-found: error
+      - name: Attach to GitHub release (tags only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8 # v2.3.2
+        with:
+          files: |
+            .build/win32-${{ matrix.arch }}/archive/*.zip
+            .build/win32-${{ matrix.arch }}/user-setup/*.exe
+            ../NX-Studio-Code-linux-${{ matrix.arch }}.tar.gz
