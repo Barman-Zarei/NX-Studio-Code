@@ -55,3 +55,7 @@ dist
 .v[0-9]*/
 # Local agent validation evidence
 .agent-validation/
+
+# NX Studio Code
+__pycache__/
+*.pyc
