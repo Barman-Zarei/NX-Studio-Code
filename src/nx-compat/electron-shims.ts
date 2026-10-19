@@ -39,8 +39,29 @@ export function patchProtocol(P) {
 	return true;
 }
 
+function patchFrame(frame) {
+	const P = frame && Object.getPrototypeOf(frame);
+	if (!P || P.__nxFramePatched) { return; }
+	P.__nxFramePatched = true;
+	// Electron < 29 has no WebFrameMain.isDestroyed(); a destroyed frame throws on property access.
+	if (typeof P.isDestroyed !== 'function') { P.isDestroyed = function () { try { void this.processId; return false; } catch (e) { return true; } }; }
+	if (typeof P.collectJavaScriptCallStack !== 'function') { P.collectJavaScriptCallStack = async function () { return undefined; }; }
+}
+
 export function installElectronShims(electron) {
 	const { app, session } = electron;
+	// Small API gaps found by the static audit against the Electron 22 typings (see docs/LEGACY.md).
+	if (typeof app.resolveProxy !== 'function') { app.resolveProxy = (url) => session.defaultSession.resolveProxy(url); }
+	if (typeof app.setProxy !== 'function') { app.setProxy = (config) => session.defaultSession.setProxy(config); }
+	if (typeof app.setDesktopName !== 'function') { app.setDesktopName = () => { }; }
+	if (electron.contentTracing && typeof electron.contentTracing.enableHeapProfiling !== 'function') { electron.contentTracing.enableHeapProfiling = async () => undefined; }
+	const BW = electron.BrowserWindow && electron.BrowserWindow.prototype;
+	if (BW && typeof BW.setAccentColor !== 'function') { BW.setAccentColor = function () { }; }
+	app.on('web-contents-created', (_e, wc) => { try { patchFrame(wc.mainFrame); } catch (e) { /* no frame yet */ } });
+	app.whenReady().then(() => { // powerMonitor can only be touched after ready
+		const pm = electron.powerMonitor;
+		if (pm && typeof pm.getCurrentThermalState !== 'function') { pm.getCurrentThermalState = () => 'unknown'; }
+	});
 	if (electron.net && typeof electron.net.fetch !== 'function') { electron.net.fetch = nxFetch; }
 	const tryPatch = (s) => { try { patchProtocol(Object.getPrototypeOf(s.protocol)); } catch (e) { /* session not ready yet */ } };
 	app.on('session-created', tryPatch);

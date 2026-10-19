@@ -4,7 +4,7 @@ import http from 'node:http'; import zlib from 'node:zlib'; import fs from 'node
 import { register } from 'node:module'; register('./ts-resolve-hooks.mjs', import.meta.url);
 const root = path.resolve(import.meta.dirname, '..');
 const { nxFetch, NxResponse, NxHeaders, NxRequest, installFetch } = await import(path.join(root, 'src/nx-compat/fetch-node.ts'));
-const { patchProtocol } = await import(path.join(root, 'src/nx-compat/electron-shims.ts'));
+const { patchProtocol, installElectronShims } = await import(path.join(root, 'src/nx-compat/electron-shims.ts'));
 let n = 0; const ok = (m) => { n++; };
 
 const server = http.createServer((req, res) => {
@@ -57,4 +57,35 @@ const bad = await new Promise((res) => { P.handle('vscode-webview', () => { thro
 assert.strictEqual(bad.statusCode, 500); ok();
 P.unhandle('vscode-file'); P.unhandle('file'); assert.deepStrictEqual(calls.slice(-2), [['unregister', 'vscode-file'], ['unintercept', 'file']]); ok();
 assert.strictEqual(P.isProtocolHandled('x'), true); ok();
+
+// ---- installElectronShims with a fake `electron`
+{
+	const listeners = {}; let ready; const readyP = new Promise((r) => { ready = r; });
+	class Frame { constructor(dead) { this.dead = dead; } get processId() { if (this.dead) { throw new Error('Render frame was disposed'); } return 1; } }
+	const defaultSession = { protocol: Object.create(P2()), resolveProxy: (u) => 'DIRECT ' + u, setProxy: (c) => 'set:' + c.mode };
+	function P2() { return { registerStreamProtocol() { return true; }, unregisterProtocol() { return true; } }; }
+	class BrowserWindow { }
+	const fake = { app: { on: (e, cb) => { listeners[e] = cb; }, whenReady: () => readyP }, session: { defaultSession }, net: {}, powerMonitor: {}, contentTracing: {}, BrowserWindow, protocol: {} };
+	installElectronShims(fake);
+	assert.strictEqual(typeof fake.net.fetch, 'function'); assert.strictEqual(fake.app.resolveProxy('http://x'), 'DIRECT http://x'); assert.strictEqual(fake.app.setProxy({ mode: 'direct' }), 'set:direct');
+	assert.strictEqual(typeof BrowserWindow.prototype.setAccentColor, 'function'); assert.strictEqual(await fake.contentTracing.enableHeapProfiling(), undefined);
+	listeners['web-contents-created']({}, { mainFrame: new Frame(false) });
+	assert.strictEqual(new Frame(false).isDestroyed(), false); assert.strictEqual(new Frame(true).isDestroyed(), true); assert.strictEqual(await new Frame(false).collectJavaScriptCallStack(), undefined);
+	ready(); await readyP; await new Promise((r) => setImmediate(r)); assert.strictEqual(fake.powerMonitor.getCurrentThermalState(), 'unknown');
+	assert.strictEqual(typeof fake.protocol.handle, 'function'); ok(); ok(); ok(); ok();
+}
+
+// ---- NxPipePty (basic terminal for Windows < 10 1809) against a real child process
+{
+	const { NxPipePty } = await import(path.join(root, 'src/nx-compat/pipePty.ts'));
+	const child = `process.stdin.on('data', d => { const t = String(d); if (t.startsWith('q')) { process.exit(3); } process.stdout.write('GOT:' + t.trim() + '\\n'); });`;
+	const t = new NxPipePty(process.execPath, ['-e', child], { cwd: os.tmpdir(), env: process.env });
+	let seen = ''; t.onData((d) => { seen += d; }); const exited = new Promise((res) => t.onExit(res));
+	t.write('ab'); t.write('\x7f'); t.write('c\x1b[Dd\r');
+	await new Promise((r) => setTimeout(r, 400));
+	assert.ok(seen.includes('Basic terminal mode'), 'banner'); assert.ok(seen.includes('ab\b \bcd\r\n'), 'local echo + backspace: ' + JSON.stringify(seen)); assert.ok(seen.includes('GOT:acd\r\n'), 'child got the edited line: ' + JSON.stringify(seen));
+	assert.ok(t.pid > 0 && t.process.length > 0);
+	t.write('q\r'); const ex = await exited; assert.strictEqual(ex.exitCode, 3);
+	const bad = new NxPipePty('definitely-not-a-shell', [], {}); let m = ''; bad.onData((d) => { m += d; }); const bx = await new Promise((r) => bad.onExit(r)); assert.strictEqual(bx.exitCode, 1); assert.ok(/Could not start/.test(m)); ok(); ok(); ok(); ok();
+}
 console.log('compat OK (' + n + ' checks)');

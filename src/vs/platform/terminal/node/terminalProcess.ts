@@ -5,6 +5,7 @@
 
 import * as fs from 'fs';
 import { exec } from 'child_process';
+import { NxPipePty } from '../../../../nx-compat/pipePty.js';
 import { timeout } from '../../../base/common/async.js';
 import { Emitter, Event } from '../../../base/common/event.js';
 import { Disposable, toDisposable } from '../../../base/common/lifecycle.js';
@@ -317,7 +318,10 @@ export class TerminalProcess extends Disposable implements ITerminalChildProcess
 		}
 		const sanitizedOptions = { ...options, env: sanitizeEnvForLogging(options.env as IProcessEnvironment | undefined) };
 		this._logService.trace('node-pty.IPty#spawn', shellLaunchConfig.executable, args, sanitizedOptions);
-		const ptyProcess = spawn(shellLaunchConfig.executable!, args, options);
+		// NX LEGACY: Windows 7/8 have no ConPTY and node-pty has no winpty -> basic piped terminal (see src/nx-compat/pipePty.ts)
+		const ptyProcess: IPty = (isWindows && getWindowsBuildNumberSync() < 18309)
+			? new NxPipePty(shellLaunchConfig.executable!, args as string | string[], options as never) as unknown as IPty
+			: spawn(shellLaunchConfig.executable!, args, options);
 		this._ptyProcess = ptyProcess;
 		this._childProcessMonitor = this._register(new ChildProcessMonitor(ptyProcess.pid, this._logService));
 		this._register(this._childProcessMonitor.onDidChangeHasChildProcesses(value => this._onDidChangeProperty.fire({ type: ProcessPropertyType.HasChildProcesses, value })));
