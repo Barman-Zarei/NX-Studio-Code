@@ -1,4 +1,4 @@
-import os, sys, tempfile, unittest, subprocess, json, urllib.request
+import os, shutil, sys, tempfile, unittest, subprocess, json, urllib.request
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from nxcs import debugger, profiler, depguard, forge, profiles, logexp, preview, releasepilot, review, agent, claude, workspace, testintel
 
@@ -38,7 +38,7 @@ class M(unittest.TestCase):
         r = testintel.run_unittest(dest, start="tests"); self.assertTrue(r["ok"], r["output"])
         with self.assertRaises(FileExistsError): forge.create("python", dest, "mylib")
         dest2 = os.path.join(self.d, "c"); forge.create("c", dest2, "hello")
-        if subprocess.run(["which", "make"], capture_output=True).returncode == 0 and subprocess.run(["which", "cc"], capture_output=True).returncode == 0:
+        if os.name != "nt" and shutil.which("make") and shutil.which("cc"):  # the C template builds with POSIX make/cc
             self.assertEqual(subprocess.run(["make", "-C", dest2], capture_output=True).returncode, 0)
             self.assertEqual(subprocess.run([os.path.join(dest2, "hello")], capture_output=True, text=True).stdout.strip(), "hello")
         dest3 = os.path.join(self.d, "cli"); forge.create("cli", dest3, "tool")

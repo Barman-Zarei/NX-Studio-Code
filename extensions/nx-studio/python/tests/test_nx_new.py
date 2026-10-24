@@ -1,5 +1,6 @@
 import json, os, subprocess, sys, tempfile, unittest
-from nxcs import secretscan, cilint, bridge
+from unittest import mock
+from nxcs import secretscan, cilint, bridge, shells
 
 PY_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -76,6 +77,38 @@ class Bridge(unittest.TestCase):
             subprocess.run(["git", "init", "-q", d]); 
             _, fin = _bridge("git.discard", {"root": d, "path": "x"})
         self.assertFalse(fin["ok"]); self.assertIn("confirm", fin["error"])
+
+
+class Shells(unittest.TestCase):
+    def setUp(self):
+        self._saved = shells._CACHE; shells._CACHE = None
+
+    def tearDown(self):
+        shells._CACHE = self._saved
+
+    def test_wsl_launcher_is_never_used_and_git_bash_wins(self):
+        wsl, gitbash = r"C:\Windows\System32\bash.exe", r"C:\Program Files\Git\bin\bash.exe"
+        ok = mock.Mock(returncode=0, stdout="nxok\n")
+        with mock.patch.object(shells.os, "name", "nt"), mock.patch.object(shells, "_candidates", return_value=[wsl, gitbash]), \
+                mock.patch.object(shells.os.path, "isfile", return_value=True), mock.patch.object(shells.subprocess, "run", return_value=ok) as run:
+            self.assertEqual(shells.find_bash(), gitbash)
+            run.assert_called_once()
+            self.assertEqual(run.call_args[0][0][0], gitbash)  # the launcher was never even executed
+
+    def test_none_when_only_wsl_exists(self):
+        with mock.patch.object(shells.os, "name", "nt"), mock.patch.object(shells, "_candidates", return_value=[r"C:\Windows\System32\bash.exe"]), \
+                mock.patch.object(shells.os.path, "isfile", return_value=True), mock.patch.object(shells.subprocess, "run") as run:
+            self.assertIsNone(shells.find_bash()); run.assert_not_called()
+
+    def test_broken_bash_is_skipped(self):
+        bad = mock.Mock(returncode=1, stdout="")
+        with mock.patch.object(shells, "_candidates", return_value=["/x/bash"]), mock.patch.object(shells.os.path, "isfile", return_value=True), \
+                mock.patch.object(shells.subprocess, "run", return_value=bad):
+            self.assertIsNone(shells.find_bash())
+
+    @unittest.skipIf(os.name == "nt", "needs a POSIX shell")
+    def test_real_bash_on_posix(self):
+        self.assertTrue(shells.find_bash())
 
 
 if __name__ == "__main__":

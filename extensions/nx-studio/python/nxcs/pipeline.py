@@ -8,7 +8,7 @@ try:
     import yaml
 except ImportError:  # PyYAML is optional; inspection then reports itself as unavailable
     yaml = None
-from . import saferun
+from . import saferun, shells
 
 
 def inspect(path):
@@ -45,7 +45,10 @@ def run_job(info, job, cwd, timeout=300, restricted=True, on_output=None):
         if "${{" in cmd:
             results.append({"cmd": cmd, "skipped": "contains ${{ }} expression"})
             continue
-        r = saferun.run(["bash", "-eo", "pipefail", "-c", cmd], cwd=cwd, timeout=timeout,
+        bash = shells.find_bash()
+        if not bash:
+            raise RuntimeError("no usable bash found (on Windows install Git for Windows; the WSL launcher is not used)")
+        r = saferun.run([bash, "-eo", "pipefail", "-c", cmd], cwd=cwd, timeout=timeout,
                         restricted=restricted, on_output=on_output)
         results.append({"cmd": cmd, "returncode": r["returncode"], "isolation": r["isolation"]})
         if r["returncode"]:
