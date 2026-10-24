@@ -3,8 +3,8 @@
 import http from 'node:http'; import zlib from 'node:zlib'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import assert from 'node:assert'; import { pathToFileURL } from 'node:url'; import { Readable } from 'node:stream';
 import { register } from 'node:module'; register('./ts-resolve-hooks.mjs', import.meta.url);
 const root = path.resolve(import.meta.dirname, '..');
-const { nxFetch, NxResponse, NxHeaders, NxRequest, installFetch } = await import(path.join(root, 'src/nx-compat/fetch-node.ts'));
-const { patchProtocol, installElectronShims } = await import(path.join(root, 'src/nx-compat/electron-shims.ts'));
+const { nxFetch, NxResponse, NxHeaders, NxRequest, installFetch } = await import(pathToFileURL(path.join(root, 'src/nx-compat/fetch-node.ts')).href);
+const { patchProtocol, installElectronShims } = await import(pathToFileURL(path.join(root, 'src/nx-compat/electron-shims.ts')).href);
 let n = 0; const ok = (m) => { n++; };
 
 const server = http.createServer((req, res) => {
@@ -77,7 +77,7 @@ assert.strictEqual(P.isProtocolHandled('x'), true); ok();
 
 // ---- NxPipePty (basic terminal for Windows < 10 1809) against a real child process
 {
-	const { NxPipePty } = await import(path.join(root, 'src/nx-compat/pipePty.ts'));
+	const { NxPipePty } = await import(pathToFileURL(path.join(root, 'src/nx-compat/pipePty.ts')).href);
 	const child = `process.stdin.on('data', d => { const t = String(d); if (t.startsWith('q')) { process.exit(3); } process.stdout.write('GOT:' + t.trim() + '\\n'); });`;
 	const t = new NxPipePty(process.execPath, ['-e', child], { cwd: os.tmpdir(), env: process.env });
 	let seen = ''; t.onData((d) => { seen += d; }); const exited = new Promise((res) => t.onExit(res));

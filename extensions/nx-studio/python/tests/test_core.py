@@ -54,11 +54,13 @@ class T(unittest.TestCase):
     def test_key_file_permissions(self):
         kf = os.path.join(self.d, "k"); claude.save_key("sk-test-123", kf)
         os.environ.pop("ANTHROPIC_API_KEY", None)
-        self.assertEqual(oct(os.stat(kf).st_mode & 0o777), "0o600")
         self.assertEqual(claude.load_key(kf), "sk-test-123")
+        self.assertEqual(claude.redact("err sk-test-123", "sk-test-123"), "err ***")
+        if os.name == "nt":
+            self.skipTest("POSIX file modes do not exist on Windows (access is governed by the user-profile ACL)")
+        self.assertEqual(oct(os.stat(kf).st_mode & 0o777), "0o600")
         os.chmod(kf, 0o644)
         with self.assertRaises(claude.ClaudeError): claude.load_key(kf)
-        self.assertEqual(claude.redact("err sk-test-123", "sk-test-123"), "err ***")
 
     def test_patch_selective_and_conflict_protection(self):
         old = "a\nb\nc\nd\ne\n"; new = "A\nb\nc\nd\nE\n"
@@ -74,7 +76,7 @@ class T(unittest.TestCase):
 
     def test_git_center(self):
         subprocess.run(["git", "init", "-q", self.d], check=True)
-        for k, v in (("user.email", "t@t"), ("user.name", "t")):
+        for k, v in (("user.email", "t@t"), ("user.name", "t"), ("core.autocrlf", "false")):  # autocrlf=true (Git for Windows default) would turn "1\n" into "1\r\n"
             subprocess.run(["git", "-C", self.d, "config", k, v], check=True)
         p = self.w("a.txt", "1\n"); r = gitcc.Repo(self.d)
         self.assertEqual(r.status()["files"][0][0], "??")
@@ -120,6 +122,8 @@ class T(unittest.TestCase):
 
     def test_pipeline_inspect_and_run(self):
         if pipeline.yaml is None: self.skipTest("PyYAML missing")
+        from nxcs import shells
+        if shells.find_bash() is None: self.skipTest("no usable bash on this machine")
         wf = self.w("ci.yml", "name: t\non: push\njobs:\n  a:\n    runs-on: ubuntu-24.04\n    steps:\n      - uses: actions/checkout@v4\n      - run: echo hi-from-step\n      - run: exit 3\n      - run: echo never\n")
         info = pipeline.inspect(wf)
         self.assertTrue(any("actions/checkout" in u for u in info["unsupported"]))

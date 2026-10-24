@@ -29,7 +29,8 @@ def load_key(path=KEY_FILE):
     if k:
         return k.strip()
     try:
-        if os.stat(path).st_mode & (stat.S_IRWXG | stat.S_IRWXO):
+        # POSIX only: Windows has no group/other mode bits (access is governed by the user-profile ACL)
+        if os.name != "nt" and os.stat(path).st_mode & (stat.S_IRWXG | stat.S_IRWXO):
             raise ClaudeError("insecure_key_file", "key file must be mode 0600")
         with open(path) as f:
             return f.read().strip() or None

@@ -1,12 +1,12 @@
 // Verifies the NX LEGACY node-side bundles: every node entry point must bundle to CommonJS with the real build options,
 // contain no `import.meta`, no top-level await, and parse under `node --check`.
 // usage: ESBUILD=/path/to/esbuild-package node nx/verify-cjs-bundles.mjs     (Node >= 22.18 or 24; TS is type-stripped)
-import { createRequire } from 'node:module'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import cp from 'node:child_process';
+import { createRequire } from 'node:module'; import fs from 'node:fs'; import os from 'node:os'; import path from 'node:path'; import cp from 'node:child_process'; import { pathToFileURL } from 'node:url';
 const root = path.resolve(import.meta.dirname, '..');
 const require = createRequire(import.meta.url);
 const esbuild = require(process.env.ESBUILD || path.join(root, 'build', 'node_modules', 'esbuild'));
-const { getBundleOptions } = await import(path.join(root, 'build/next/bundle.ts'));
-const { applyNxLegacy, isNxNodeEntry } = await import(path.join(root, 'build/next/nx-legacy.ts'));
+const { getBundleOptions } = await import(pathToFileURL(path.join(root, 'build/next/bundle.ts')).href);
+const { applyNxLegacy, isNxNodeEntry } = await import(pathToFileURL(path.join(root, 'build/next/nx-legacy.ts')).href);
 const bootstrap = ['main', 'mainImpl', 'cli', 'bootstrap-fork'];
 const entries = [...bootstrap,
   'vs/workbench/contrib/debug/node/telemetryApp', 'vs/platform/files/node/watcher/watcherMain', 'vs/platform/localTranscription/node/localTranscriptionMain',

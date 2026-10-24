@@ -7,7 +7,7 @@ Python 3.8-compatible, standard library only (PyYAML is vendored as a fallback).
 """
 import json, os, shutil, subprocess, sys, threading
 from . import (__version__, intel, workspace, testintel, pipeline, gitcc, claude, review, releasepilot, depguard,
-               forge, logexp, patch, profiler, saferun, taskgraph, secretscan, cilint)
+               forge, logexp, patch, profiler, saferun, taskgraph, secretscan, cilint, shells)
 
 _lock = threading.Lock()
 
@@ -19,8 +19,9 @@ def emit(obj):
 
 
 def _shell_argv(cmd):
-    if shutil.which("bash"):
-        return ["bash", "-eo", "pipefail", "-c", cmd]
+    bash = shells.find_bash()
+    if bash:
+        return [bash, "-eo", "pipefail", "-c", cmd]
     if os.name == "nt":
         return ["cmd", "/d", "/s", "/c", cmd]
     return ["sh", "-c", cmd]
@@ -30,7 +31,7 @@ def _shell_argv(cmd):
 
 def m_ping(a):
     return {"nxcs": __version__, "python": sys.version.split()[0], "platform": sys.platform,
-            "bash": bool(shutil.which("bash")), "git": bool(shutil.which("git"))}
+            "bash": bool(shells.find_bash()), "git": bool(shutil.which("git"))}
 
 
 def m_analyze(a):
@@ -93,8 +94,8 @@ def m_pipeline_run(a):
     info = pipeline.inspect(a["path"])
     if info.get("error"):
         raise RuntimeError(info["error"])
-    if not shutil.which("bash"):
-        raise RuntimeError("bash not found (on Windows install Git for Windows)")
+    if not shells.find_bash():
+        raise RuntimeError("no usable bash found (on Windows install Git for Windows; the WSL launcher is not used)")
     names = _closure(info, a.get("jobs"))
     cwd, restricted, timeout = a["cwd"], a.get("restricted", True), a.get("timeout", 600)
     g, details = taskgraph.Graph(), {}
