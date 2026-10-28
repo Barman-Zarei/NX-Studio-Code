@@ -31,13 +31,15 @@ jobs:
           node-version: "24"
       - name: Python unit tests (NX core)
         working-directory: extensions/nx-studio/python
-        run: python -m unittest discover -s tests -v
+        run: node ../../../nx/ci-run.mjs "NX Python tests" -- python -m unittest discover -s tests -v
+      - name: CI helper test
+        run: node nx/test-ci-run.mjs
       - name: Extension smoke test (real core, fake vscode API)
-        run: node extensions/nx-studio/test/smoke.js
+        run: node nx/ci-run.mjs "extension smoke test" -- node extensions/nx-studio/test/smoke.js
       - name: LEGACY polyfills (APIs removed, then supplied)
-        run: node nx/test-polyfills.mjs
+        run: node nx/ci-run.mjs "polyfill tests" -- node nx/test-polyfills.mjs
       - name: LEGACY fetch + Electron protocol shim
-        run: node nx/test-compat.mjs
+        run: node nx/ci-run.mjs "compat tests" -- node nx/test-compat.mjs
   ci-doctor:
     name: CI Doctor on our own workflows
     runs-on: ubuntu-22.04
@@ -78,4 +80,4 @@ jobs:
       - name: Bundle every node entry point with the real build options
         env:
           ESBUILD: ${{ runner.temp }}/esb/node_modules/esbuild
-        run: node nx/verify-cjs-bundles.mjs
+        run: node nx/ci-run.mjs "node bundles to CommonJS" -- node nx/verify-cjs-bundles.mjs
