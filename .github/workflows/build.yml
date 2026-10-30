@@ -1,103 +1,66 @@
 name: build
-
+# Builds NX Studio Code LEGACY (latest VS Code source retargeted to Electron 22.3.27 for Windows 7+).
+# NOT executed, and the port is unfinished (see docs/LEGACY.md): expect build failures until the listed gaps are closed.
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - "v*"
-  pull_request:
   workflow_dispatch:
-
+  push:
+    tags: ["v*"]
 permissions:
   contents: read
-
 jobs:
   build:
-    name: build
-    if: matrix.target != 'linux' || github.ref != 'refs/heads/LEGACY'
+    name: build ${{ matrix.target }}-${{ matrix.arch }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 150
-
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
       matrix:
         include:
-          - os: windows-2022
-            target: win32
-            arch: x64
-
-          - os: ubuntu-22.04
-            target: linux
-            arch: x64
-
+          - { os: windows-2022, target: win32, arch: x64 }
     env:
       NODE_OPTIONS: --max-old-space-size=8192
-
     steps:
-      - name: build
-        uses: actions/checkout@v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           persist-credentials: false
-
-      - name: build
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version-file: .nvmrc
-
-      - name: build
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: "3.11"
-
-      - name: build
+      - name: Linux build dependencies
         if: matrix.target == 'linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            build-essential \
-            pkg-config \
-            libx11-dev \
-            libxkbfile-dev \
-            libsecret-1-dev \
-            libkrb5-dev
-
-      - name: build
-        run: |
-          node nx/ci-run.mjs "build" -- npm ci
-
-      - name: build
-        run: |
-          node nx/ci-run.mjs "build" -- npm run gulp vscode-${{ matrix.target }}-${{ matrix.arch }}-min
-
-      - name: build
+        run: sudo apt-get update && sudo apt-get install -y build-essential pkg-config libx11-dev libxkbfile-dev libsecret-1-dev libkrb5-dev
+      - name: Install
+        run: node nx/ci-run.mjs "npm ci" -- npm ci
+      - name: Build (compile + extensions + minify + package)
+        run: node nx/ci-run.mjs "gulp build" -- npm run gulp vscode-${{ matrix.target }}-${{ matrix.arch }}-min
+      - name: Windows installer and zip
         if: matrix.target == 'win32'
         run: |
-          node nx/ci-run.mjs "build" -- npm run gulp vscode-win32-${{ matrix.arch }}-inno-updater
-          node nx/ci-run.mjs "build" -- npm run gulp vscode-win32-${{ matrix.arch }}-archive
-          node nx/ci-run.mjs "build" -- npm run gulp vscode-win32-${{ matrix.arch }}-user-setup
-
-      - name: build
+          node nx/ci-run.mjs "inno-updater" -- npm run gulp vscode-win32-${{ matrix.arch }}-inno-updater
+          node nx/ci-run.mjs "zip archive" -- npm run gulp vscode-win32-${{ matrix.arch }}-archive
+          node nx/ci-run.mjs "installer" -- npm run gulp vscode-win32-${{ matrix.arch }}-user-setup
+      - name: Pack Linux tarball
         if: matrix.target == 'linux'
-        run: |
-          tar -czf NX-Studio-Code-linux-${{ matrix.arch }}.tar.gz \
-            -C .. VSCode-linux-${{ matrix.arch }}
-
-      - name: artifact
-        uses: actions/upload-artifact@v4
+        run: tar -czf NX-Studio-Code-LEGACY-linux-${{ matrix.arch }}.tar.gz -C .. VSCode-linux-${{ matrix.arch }}
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
-          name: nx-studio-code-${{ github.ref_name }}-${{ matrix.target }}-${{ matrix.arch }}
+          name: nx-studio-code-legacy-${{ matrix.target }}-${{ matrix.arch }}
           path: |
             .build/win32-${{ matrix.arch }}/archive/*.zip
             .build/win32-${{ matrix.arch }}/user-setup/*.exe
-            NX-Studio-Code-linux-${{ matrix.arch }}.tar.gz
+            NX-Studio-Code-LEGACY-linux-${{ matrix.arch }}.tar.gz
           if-no-files-found: error
-
-      - name: build
+      - name: Attach to GitHub release (tags only)
         if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
         with:
+          prerelease: true
           files: |
             .build/win32-${{ matrix.arch }}/archive/*.zip
             .build/win32-${{ matrix.arch }}/user-setup/*.exe
-            NX-Studio-Code-linux-${{ matrix.arch }}.tar.gz
+            NX-Studio-Code-LEGACY-linux-${{ matrix.arch }}.tar.gz
