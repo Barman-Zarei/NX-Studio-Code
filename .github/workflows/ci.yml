@@ -28,7 +28,7 @@ jobs:
           python-version: ${{ matrix.python }}
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
-          node-version: "20"
+          node-version: "24"
       - name: Python unit tests (NX core)
         working-directory: extensions/nx-studio/python
         run: node ../../../nx/ci-run.mjs "NX Python tests" -- python -m unittest discover -s tests -v
@@ -36,6 +36,10 @@ jobs:
         run: node nx/test-ci-run.mjs
       - name: Extension smoke test (real core, fake vscode API)
         run: node nx/ci-run.mjs "extension smoke test" -- node extensions/nx-studio/test/smoke.js
+      - name: LEGACY polyfills (APIs removed, then supplied)
+        run: node nx/ci-run.mjs "polyfill tests" -- node nx/test-polyfills.mjs
+      - name: LEGACY fetch + Electron protocol shim
+        run: node nx/ci-run.mjs "compat tests" -- node nx/test-compat.mjs
   ci-doctor:
     name: CI Doctor on our own workflows
     runs-on: ubuntu-22.04
@@ -60,3 +64,20 @@ jobs:
                   bad += x["severity"] == "error"
           sys.exit(1 if bad else 0)
           PY
+  legacy-bundles:
+    name: LEGACY node-side bundles are valid CommonJS
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: "24"
+      - name: Install esbuild
+        run: npm install --prefix "$RUNNER_TEMP/esb" esbuild@0.25.12
+      - name: Bundle every node entry point with the real build options
+        env:
+          ESBUILD: ${{ runner.temp }}/esb/node_modules/esbuild
+        run: node nx/ci-run.mjs "node bundles to CommonJS" -- node nx/verify-cjs-bundles.mjs
