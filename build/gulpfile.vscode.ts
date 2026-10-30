@@ -176,7 +176,7 @@ function packageTask(platform: string, arch: string, sourceFolderName: string, d
 		}
 
 		const name = product.nameShort;
-		const packageJsonUpdates: Record<string, unknown> = { name, version, type: 'commonjs' }; // NX LEGACY: node-side bundles are CommonJS (Electron 22)
+		const packageJsonUpdates: Record<string, unknown> = { name, version };
 
 		if (platform === 'linux') {
 			packageJsonUpdates.desktopName = `${product.applicationName}.desktop`;

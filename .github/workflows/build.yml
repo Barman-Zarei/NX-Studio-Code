@@ -1,6 +1,6 @@
 name: build
-# Builds NX Studio Code LEGACY (latest VS Code source retargeted to Electron 22.3.27 for Windows 7+).
-# NOT executed, and the port is unfinished (see docs/LEGACY.md): expect build failures until the listed gaps are closed.
+# Builds NX Studio Code (main line, current upstream VS Code). NOT executed by the author of this commit:
+# first run is expected to need small fixes (runner images, native-module toolchains).
 on:
   workflow_dispatch:
   push:
@@ -19,6 +19,7 @@ jobs:
       matrix:
         include:
           - { os: windows-2022, target: win32, arch: x64 }
+          - { os: ubuntu-22.04, target: linux, arch: x64 }
     env:
       NODE_OPTIONS: --max-old-space-size=8192
     steps:
@@ -46,21 +47,20 @@ jobs:
           node nx/ci-run.mjs "installer" -- npm run gulp vscode-win32-${{ matrix.arch }}-user-setup
       - name: Pack Linux tarball
         if: matrix.target == 'linux'
-        run: tar -czf NX-Studio-Code-LEGACY-linux-${{ matrix.arch }}.tar.gz -C .. VSCode-linux-${{ matrix.arch }}
+        run: tar -czf NX-Studio-Code-linux-${{ matrix.arch }}.tar.gz -C .. VSCode-linux-${{ matrix.arch }}
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
-          name: nx-studio-code-legacy-${{ matrix.target }}-${{ matrix.arch }}
+          name: nx-studio-code-main-${{ matrix.target }}-${{ matrix.arch }}
           path: |
             .build/win32-${{ matrix.arch }}/archive/*.zip
             .build/win32-${{ matrix.arch }}/user-setup/*.exe
-            NX-Studio-Code-LEGACY-linux-${{ matrix.arch }}.tar.gz
+            NX-Studio-Code-linux-${{ matrix.arch }}.tar.gz
           if-no-files-found: error
       - name: Attach to GitHub release (tags only)
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
         with:
-          prerelease: true
           files: |
             .build/win32-${{ matrix.arch }}/archive/*.zip
             .build/win32-${{ matrix.arch }}/user-setup/*.exe
-            NX-Studio-Code-LEGACY-linux-${{ matrix.arch }}.tar.gz
+            NX-Studio-Code-linux-${{ matrix.arch }}.tar.gz
