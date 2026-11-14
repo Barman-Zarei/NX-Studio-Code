@@ -38,6 +38,7 @@ extensions.
 
 **NX Studio Code puts that whole loop inside the editor.** It is a fork of the MIT-licensed
 [Code - OSS](https://github.com/microsoft/vscode) (the open-source core of VS Code) that ships one built-in extension,
+**NX Studio** real link is for Nexora-Techno organization: https://github.com/Nexora-Techno/NX-Studio-Code
 **NX Studio**, with the tooling a developer needs between "it works on my machine" and "it is released":
 
 - run your **GitHub Actions workflows locally** and see exactly what *cannot* run locally;
